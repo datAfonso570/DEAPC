@@ -1,6 +1,6 @@
   body {
     font-family: Arial, Sans-serif;
-    background-color: #f0f2f5;
+    background-color:  rgb(141, 117, 88);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -12,7 +12,7 @@
     font-weight: bold;
   }
 
-  .site-header {
+.site-header {
   display: flex;
   justify-content: space-between; 
   align-items: center; 
@@ -28,7 +28,7 @@
   }
 
   .login-box {
-    background-color: white;
+    background-color: rgb(235, 223, 213);
     padding: 25px;
     border-radius: 8px;
     width: 290px;
@@ -56,9 +56,9 @@
   .login-box button {
     width: 40%;
     padding: 10px;
-    margin-top: 10px;
-    background-color: #0576ee;
-    color: white;
+    margin-top: 15px;
+    background-color: #ce6205dd;
+    color: rgb(255, 255, 255);
     border: 1px solid #cccccc;
     ;
     border-radius: 5px;
@@ -66,11 +66,12 @@
   }
 
   .login-box button:hover {
-    background-color: #003a79;
+    background-color: #84430bdd;
   }
 
   .caixa-texto {
-    background-color: #ffffff;
+    background-color: #84430bdd;;
+    color: rgb(255, 255, 255);
     border: 1px solid #cccccc;
     padding: 20px;
     margin: 20px;
@@ -85,7 +86,8 @@
   text-align: left;
   padding: 10px;
   font-size: 20px;
-  background-color: #c1c1c1;
+   border-radius: 6px;
+  background-color: rgb(235, 223, 213);
   width: 80%;
 }
         .user-area {
@@ -105,12 +107,33 @@
   width: 200px;
   padding: 15px;
   font-size: 16px;
-  background-color: #0576ee;
+  background-color: #ce6205dd;
   border: 1px solid #cccccc;
   color: white;
   border-radius: 6px;
   cursor: pointer;
 }
         .botoes button:hover {
-  background-color: #003a79;
+  background-color: #84430bdd;
+}
+
+rodape {
+  background-color: rgb(106, 87, 71);
+  color: #030303;
+  padding: 10px;
+  margin: 10px;
+  text-align: center;
+  font-family: Arial,
+}
+
+.socials a img {
+  width: 24px;
+  margin: 0 8px;
+  filter: brightness(0) invert(1); /* Deixa o ícone branco */
+}
+
+.rodape-base {
+  margin-top: 20px;
+  font-size: 14px;
+  color: #000000;
 }
