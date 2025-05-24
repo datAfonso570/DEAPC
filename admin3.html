@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Área Administrador</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles/styles.css">
 </head>
 
 <body>
@@ -17,15 +17,71 @@
             <p>INSERIR CLIENTE/PRODUTO</p>
         </div>
     </header>
-    <fieldset class="select_product_client">
-  <legend class="legend_selecionar"> Selecionar</legend>
+    <button onclick="window.location.href='admin1.html'"class="top-left">Go Back</button> 
+<div class="fieldset-wrapper">
+  <fieldset class="select_product_client">
+    <div class="radio-group">
+      <label class="select_product">
+        <input type="radio" id="Produto" name="produto_cliente" value="Produto" checked />
+        Produto
+      </label>
+      <label class="select_client">
+        <input type="radio" id="Cliente" name="produto_cliente" value="Cliente" />
+        Cliente
+      </label>
+    </div>
+  </fieldset>
+</div>
+<div class="forms-container">
+    <!-- Product Form -->
+    <form class="styled-form">
+      <h2>Adicionar Produto</h2>
+      <input type="text" placeholder="Nome do Produto" required><br>
+      <input type="text" placeholder="Fornecedor" required><br>
+      <input type="number" placeholder="Preço" required><br>
+      <input type="text" placeholder="Categoria" required><br>
+      <input type="text" placeholder="NOTA:" ><br>
+      <input type="date" placeholder="Data:" required ><br>
+      <button type="submit">Salvar Produto</button>
+      <button type="reset" class="clear-btn">Limpar</button>
+    </form>
+
+    <!-- Client Form -->
+    <form class="styled-form">
+      <h2>Adicionar Cliente</h2>
+      <input type="text" placeholder="Nome do Cliente" required><br>
+      <input type="email" placeholder="Email" required><br>
+      <input type="text" placeholder="NIF" required><br>
+      <input type="text" placeholder="Método de Pagamento" required><br>
+      <input type="tel" placeholder="Telefone"><br>
+      <input type="date" placeholder="Data:" required ><br>
+      <button type="submit">Salvar Cliente</button>
+      <button type="reset" class="clear-btn">Limpar</button>
+    </form>
   </div>
-  <div>
-    <label for="Produto" class="select_product">Produto</label>
-    <input type="radio" id="Produto" name="produto" value="Produto" checked />
-  </div>
-  <div>
-    <label for="Cliente" class="select_client">Cliente</label>
-    <input type="radio"  id="Cliente" name="Cliente" value="Cliente" />
-  </div>
-</fieldset>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
