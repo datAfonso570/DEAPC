@@ -1,0 +1,43 @@
+<html>
+    <head>
+        
+        <title> Relearning HTML</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body class="general-body">
+        <header class="site-header">
+            <div class="logo">
+                <img src="images/logo1.png" alt="Company Logo">
+            </div> 
+            <div class="header-text-container">
+                <h1>ÁREA UTILIZADOR</h1>
+                <p>CLIENTE E PRODUTO INFO</p>
+            </div>           
+        </header>
+        <div class="top-left">
+            <p ><button onClick="document.location='file:///home/deapc1na/Documents/gerirEncUti.html'">Go Back</button></p>
+        </div>
+        <div class="">            
+            <label>Type of search</label>
+            <select id="searchFor">
+                <option value="client">Client</option>
+                <option value="product">Product</option>
+            </select>            
+            <p ><label>ID</label><input type="text" id="searchID"><button type="button">Search</button></p>
+        </div>
+        <div class="retangle center">
+            <table border="1">
+                <caption>Product Information</caption>
+                <tr><th>ID</th><th>NAME</th><th>DESCRIPTION</th></tr>
+                <tr><td id="orderID">1234</td><td id="client">Sell Thing ltd</td><td id="status">Pending</td></tr>
+            </table>            
+        </div>
+        <div class="retangle center">
+            <table border="1">
+                <caption>Client Information</caption>
+                <tr><th>ID</th><th>NAME</th><th>ADDRESS/th></tr>
+                <tr><td id="orderID">1234</td><td id="client">Sell Thing ltd</td><td id="status">Pending</td></tr>
+            </table>            
+        </div>         
+    </body>
+</html>
