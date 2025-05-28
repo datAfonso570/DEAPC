@@ -262,3 +262,71 @@ span:before {
   text-align: center;
 }
 
+general-body {
+    background-color: rgb(141, 117, 88);
+    text-align: center;
+  }
+
+  .product-button:hover {
+    background-color: #cc6600;
+  }
+.center {
+    display:block;
+    align-items: center;
+    width:fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+.top-left {
+    display:block;
+    align-items: center;
+    width:fit-content;
+    margin-left: 20px;
+    margin-top: 20px;
+    text-align: center;
+}
+.up-center {
+    display:block;
+    align-items: center;
+    width:fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top:50px;
+    text-align: center;
+}
+span:before {
+    content: " "; 
+    display: inline-block; 
+    width: 32px;
+  }
+.below-center{
+    display:block;
+    align-items: center;
+    width:fit-content;
+    margin-left: auto;
+    margin-right: auto;    
+    text-align: center;
+}
+.retangle {
+    width: fit-content;
+    height: fit-content;
+    background-color: #f0d3b3;
+    border: 2px solid #020202;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    color: #333;
+    font-size: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 20px;
+    line-height: 1.5;
+    text-align: left; 
+  }
+  .center-td {
+    align-items: center;
+
+  }
+
