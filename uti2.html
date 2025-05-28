@@ -1,0 +1,47 @@
+<html>
+    <head>
+        
+        <title> Relearning HTML</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body class="general-body">
+        <header class="site-header">
+            <div class="logo">
+                <img src="images/logo1.png" alt="Company Logo">
+            </div> 
+            <div class="header-text-container">
+                <h1>ÁREA UTILIZADOR</h1>
+                <p>PREPARAR ENCOMENDA</p>
+            </div>           
+        </header>
+        <div class="top-left">
+            <p ><button onClick="document.location='file:///home/deapc1na/Documents/searchProdClient.html'">Go Back</button></p>
+        </div>
+        <div class="">
+            <p ><label>Order Number</label><input type="text" id="searchID"><button type="button">Search</button></p>
+        </div>
+        <div class="product-container">
+            <table border="1">
+                <caption>Order Information</caption>
+                <tr><th>ORDER ID</th><th>CLIENT</th><th>STATUS</th></tr>
+                <tr><td id="orderID">1234</td><td id="client">Sell Thing ltd</td><td id="status">Pending</td></tr>
+            </table>            
+        </div>
+        <div class="retangle below-center">
+            <table border="1" >
+                <caption>Products</caption>
+                <tr><th>CODE</th><th>NAME</th><th>DESCRIPTION</th><th>QUANTITY</th><th>ADDED TO ORDER</th></tr>
+                <tr><td>1we34</td><td >box</td><td >things in a box</td><td >things in a box</td><td><input type="checkbox" id="added1"></td></tr>
+                <tr><td>1we34</td><td >box</td><td >things in a box</td><td >things in a box</td><td><input type="checkbox" id="added2"></td></tr>
+            </table>
+            <div class="center">                
+                <table>                    
+                    <tr><th></th><th></th></tr>
+                    <tr><td><button type="button" id="preped">Prepared</button></td><td ><button type="button" id="sent">Sent</button></td></tr>
+                    <tr><td colspan="2"><button type="button"id="cancel" class="center-td">Cancel Order</button></td></tr>
+                    
+                </table>
+            </div>         
+        </div>
+    </body>
+</html>
