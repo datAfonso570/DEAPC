@@ -1,0 +1,39 @@
+CREATE DATABASE deapc_db;
+
+USE deapc_db;
+CREATE TABLE users (username VARCHAR(20), passw VARCHAR(20), adm BOOLEAN, PRIMARY KEY(username));
+
+CREATE TABLE clients (clientID INT AUTO_INCREMENT NOT NULL, name VARCHAR(20), address VARCHAR(100), phone VARCHAR(20), PRIMARY KEY(clientID));
+
+CREATE TABLE products (name VARCHAR(20), part_number VARCHAR(20), description VARCHAR(200), stock INT, PRIMARY KEY(part_number));
+
+CREATE TABLE orders_client (orderID VARCHAR(20), client_name VARCHAR(20), client_ID INT, stat VARCHAR(10), PRIMARY KEY(orderID),FOREIGN KEY (client_ID) REFERENCES clients(clientID));
+
+CREATE TABLE orders_products (orderID VARCHAR(20),part_number VARCHAR(20), prod_name VARCHAR(20), prod_desc VARCHAR(200), qty INT,FOREIGN KEY (orderID) REFERENCES orders_client(orderID),FOREIGN KEY (part_number) REFERENCES products(part_number) );
+
+INSERT INTO users (username, passw, adm)
+VALUES ('ADMN01', '123456', TRUE);
+INSERT INTO users (username, passw, adm)
+VALUES ('UTIL01', 'ABCDE', FALSE);
+
+INSERT INTO clients (name, address, phone)
+VALUES ('company01', 'some street 123, city A', '123-45-789');
+INSERT INTO clients (name, address, phone)
+VALUES ('company02', 'some street 564, city B', '123--78-963');
+
+INSERT INTO products (name, part_number, description, stock)
+VALUES ('box', 'BC-12', 'cardboard box', 50);
+INSERT INTO products (name, part_number, description, stock)
+VALUES ('pallet', 'P-GT01', 'wooden pallet', 10);
+
+INSERT INTO orders_client (orderID, client_name, client_ID,stat)
+VALUES ('123DRE', 'company01', 1, 'PENDING');
+INSERT INTO orders_client (orderID, client_name, client_ID,stat)
+VALUES ('789ASW', 'company02', 2, 'READY');
+
+INSERT INTO orders_products (orderID, part_number, prod_name, prod_desc, qty)
+VALUES ('123DRE', 'BC-12', 'box', 'cardboard box',12);
+INSERT INTO orders_products (orderID, part_number, prod_name, prod_desc,qty)
+VALUES ('123DRE', 'P-GT01', 'pallet', 'wooden pallet',3);
+INSERT INTO orders_products (orderID, part_number, prod_name, prod_desc,qty)
+VALUES ('789ASW', 'P-GT01', 'pallet', 'wooden pallet',6);
