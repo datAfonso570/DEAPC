@@ -15,27 +15,30 @@
             </div>           
         </header>
         <div class="top-left">
-            <p ><button onClick="document.location=''">Go Back</button></p>
+            <form method="POST" action = "DOMtest.php">
+                <input type="submit" name="submit" value="submit">
+            </form>
+            <p ><button onClick="document.location='DOMtest.php'">Go Back</button></p>
         </div>
         <div class="">
-            <p ><label>Order Number</label><input type="text" id="searchID"><button type="button">Search</button></p>
+            <p ><label>Order Number</label><input type="text" id="searchID"><button type="button" onClick="showTables()">Search</button></p>
         </div>
         <div class="product-container">
-            <table border="1">
+            <table border="1" hidden>
                 <caption>Order Information</caption>
                 <tr><th>ORDER ID</th><th>CLIENT</th><th>STATUS</th></tr>
                 <tr><td id="orderID">1234</td><td id="client">Sell Thing ltd</td><td id="status">Pending</td></tr>
             </table>            
         </div>
         <div class="retangle below-center">
-            <table border="1" >
+            <table border="1" hidden>
                 <caption>Products</caption>
                 <tr><th>CODE</th><th>NAME</th><th>DESCRIPTION</th><th>QUANTITY</th><th>ADDED TO ORDER</th></tr>
                 <tr><td>1we34</td><td >box</td><td >things in a box</td><td >things in a box</td><td><input type="checkbox" id="added1"></td></tr>
                 <tr><td>1we34</td><td >box</td><td >things in a box</td><td >things in a box</td><td><input type="checkbox" id="added2"></td></tr>
             </table>
             <div class="center">                
-                <table>                    
+                <table hidden>                    
                     <tr><th></th><th></th></tr>
                     <tr><td><button type="button" id="preped">Prepared</button></td><td ><button type="button" id="sent">Sent</button></td></tr>
                     <tr><td colspan="2"><button type="button"id="cancel" class="center-td">Cancel Order</button></td></tr>
@@ -43,5 +46,13 @@
                 </table>
             </div>         
         </div>
+        <script>
+            function showTables(){
+                let tables = document.getElementsByTagName("table");
+                for(let table of tables){
+                    table.hidden=false;
+                }
+            }
+        </script>
     </body>
 </html>
