@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Área Administrador</title>
-    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="styles/style.css">
 </head>
 
 <body>
@@ -33,30 +33,29 @@
   </fieldset>
 </div>
 <div class="forms-container">
-    <!-- Product Form -->
+  <form action="scripts/add_product_client.php" method="POST">
     <form class="styled-form">
       <h2>Adicionar Produto</h2>
-      <input type="text" placeholder="Nome do Produto" required><br>
-      <input type="text" placeholder="Fornecedor" required><br>
-      <input type="number" placeholder="Preço" required><br>
-      <input type="text" placeholder="Categoria" required><br>
-      <input type="text" placeholder="NOTA:" ><br>
-      <input type="date" placeholder="Data:" required ><br>
+      <input type="text" placeholder="Nome do Produto"name="product_name" required><br>
+      <input type="text" placeholder="Fornecedor"name="supplier_name" required><br>
+      <input type="number" placeholder="Preço"name="product_price" required><br>
+      <input type="text" placeholder="Categoria"name="product_category" required><br>
+      <input type="text" placeholder="NOTAS:"name="product_notes" ><br>
+      <input type="date" name="product_data" required ><br>
       <button type="submit">Salvar Produto</button>
       <button type="reset" class="clear-btn">Limpar</button>
     </form>
-
-    <!-- Client Form -->
     <form class="styled-form">
       <h2>Adicionar Cliente</h2>
-      <input type="text" placeholder="Nome do Cliente" required><br>
-      <input type="email" placeholder="Email" required><br>
-      <input type="text" placeholder="NIF" required><br>
-      <input type="text" placeholder="Método de Pagamento" required><br>
-      <input type="tel" placeholder="Telefone"><br>
-      <input type="date" placeholder="Data:" required ><br>
+      <input type="text" placeholder="Nome do Cliente"name="client_name" required><br>
+      <input type="email" placeholder="Email" name="client_email" required><br>
+      <input type="text"placeholder="NIF:" name="client_nif" required><br>
+      <input type="text"placeholder="Método de Pagamento" name="payment_method" required><br>
+      <input type="tel"placeholder="Telefone" name="client_phone"><br>
+      <input type="date" name="client_data" required ><br>
       <button type="submit">Salvar Cliente</button>
       <button type="reset" class="clear-btn">Limpar</button>
+    </form>
     </form>
   </div>
 </div>
