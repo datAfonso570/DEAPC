@@ -15,24 +15,27 @@
             </div>           
         </header>
         <div class="top-left">
-            <p ><button onClick="document.location='test.php'">Go Back</button></p>
+            <p ><button onClick="document.location='Area de Utilizador.html'">Go Back</button></p>
         </div>
-        <div class="">            
+        <div class="">
+             
             <label>Type of search</label>
-            <select id="searchFor">
-                <option value="client">Client</option>
-                <option value="product">Product</option>
-            </select>            
-            <p ><label>ID</label><input type="text" id="searchID"><button type="button">Search</button></p>
+                <select id="searchFor">
+                    <option value="clients">Client</option>
+                    <option value="products">Product</option>
+                </select>                          
+                <p ><label>ID</label><input type="text" id="searchID" name="searchID"><button type="button" onClick="jsSubmit()">Search</button></p>
+                <input type="hidden" id="selected" name="url" value="uti3.html">
+              
         </div>
-        <div class="retangle center">
+        <div id="prodinfo" class="retangle center" hidden>
             <table border="1">
                 <caption>Product Information</caption>
                 <tr><th>ID</th><th>NAME</th><th>DESCRIPTION</th></tr>
                 <tr><td id="orderID">1234</td><td id="client">Sell Thing ltd</td><td id="status">Pending</td></tr>
             </table>            
         </div>
-        <div class="retangle center">
+        <div id="clientifo" class="retangle center" hidden>
             <table border="1">
                 <caption>Client Information</caption>
                 <tr><th>ID</th><th>NAME</th><th>ADDRESS/th></tr>
@@ -40,4 +43,44 @@
             </table>            
         </div>         
     </body>
+    <script>
+        
+        function jsSubmit(){
+            const formData = new FormData();
+            var searchID= document.getElementById("searchID").value;
+            var selector = document.getElementById("searchFor");
+            var selected = selector.options[selector.selectedIndex].value;
+            formData.append("table",searchID);
+            formData.append("searchTerm",selected);
+            formData.append("url",document.getElementById("selected").value);
+            /*
+            try{
+                const response = fetch("http://localhost/deapc/query.php", {                    
+                    method: 'POST',
+                    body: formData,                     
+                });                
+            }catch(e){
+                console.error(e);
+            }
+              var formData = new FormData();
+    formData.append("nickname", "johxns");
+    formData.append("password", "john_password");
+    formData.append("email", "john@server.com");*/
+
+    // If I do it this way, and assign this to body inside fetch, it works perfectly
+    // const requestBody = '{"nickname": "johxns","password":"john_password","email":"john@server.com"}';
+
+    fetch("http://localhost/deapc/query.php", {
+        // if instead of formData, I assign requestBody to body, it works!
+        body: formData,        
+        method: "POST"
+    }).then(function(response) {
+        return response.text();
+    }).then(function(data){
+        document.getElementsByTagName("html")[0].innerHTML= data;
+    }).catch(function(err){
+        console.err(err);
+    });
+        }
+    </script>
 </html>
