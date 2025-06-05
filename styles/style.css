@@ -108,7 +108,7 @@ body {
   padding: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   color: #333;
-  font-size: 16px;
+  font-size: 14px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -330,3 +330,81 @@ span:before {
 
   }
 
+.users-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-top: 40px;
+    flex-wrap: wrap;
+}
+.add-user-form, .users-list {
+    background-color: #f0d3b3;
+    border: 2px solid #020202;
+    border-radius: 10px;
+    padding: 18px 20px 18px 20px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    min-width: 220px;
+    max-width: 280px;
+    margin: 10px;
+}
+.add-user-form h2, .users-list h2 {
+    margin-top: 0;
+    font-size: 50px;
+    color: #352206;
+}
+.add-user-form input, .add-user-form select {
+    width: 95%;
+    padding: 8px;
+    margin: 8px 0;
+    border-radius: 5px;
+    border: 1px solid #b89b6a;
+    font-size: 16px;
+}
+.add-user-form button {
+    width: 100%;
+    padding: 8px;
+    background-color: #956521;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 13px;
+    margin-top: 8px;
+    cursor: pointer;
+}
+.add-user-form button:hover {
+    background-color: #a07a44;
+}
+.users-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 10px;
+    background: #fff;
+}
+
+.add-user-form h2{
+    font-size: 30px;
+    color: #352206;
+}
+.users-table th, .users-table td {
+    border: 1px solid #b89b6a;
+    padding: 8px 12px;
+    text-align: center;
+}
+
+.users-list h2 {
+    font-size: 30px;
+    color: #352206;
+    margin-top: 0;
+}
+.users-table th {
+    background-color: #fbe7c7;
+    color: #352206;
+}
+.status-online {
+    color: green;
+    font-weight: bold;
+}
+.status-offline {
+    color: #b30000;
+    font-weight: bold;
+}
