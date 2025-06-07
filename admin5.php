@@ -9,11 +9,13 @@
 <body class="general-body">
     <header class="site-header">
         <div class="logo">
-            <img src="images/logo1.png" alt="Company Logo">
+            <a href="index.html">
+      <img src="images/logo1.png">
+      </a>
         </div>
         <div class="header-text-container">
-            <h1>ÁREA ADMIN</h1>
-            <p>GERIR UTILIZADORES</p>
+            <h1>ADMIN AREA</h1>
+            <p>USER MANAGEMENT</p>
         </div>
     </header>
     <button onclick="window.location.href='admin1.html'" class="top-left">Go Back</button>

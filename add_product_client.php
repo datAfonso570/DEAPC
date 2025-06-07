@@ -5,7 +5,7 @@ $supplier        = $_POST['supplier'] ?? null;
 $price           = $_POST['price'] ?? null;
 $category        = $_POST['category'] ?? null;
 $notes           = $_POST['notes'] ?? null;
-$date            = $_POST['date'] ?? null;
+$product_date    = $_POST['product_date'] ?? ($_POST['date'] ?? null); // Use a unique name if possible
 
 // Clientes
 $client_name     = $_POST['client_name'] ?? null;
@@ -14,7 +14,7 @@ $address         = $_POST['address'] ?? null;
 $nif             = $_POST['nif'] ?? null;
 $payment_method  = $_POST['payment_method'] ?? null;
 $phone           = $_POST['phone'] ?? null;
-$client_date     = $_POST['date'] ?? null;
+$client_date     = $_POST['client_date'] ?? ($_POST['date'] ?? null); // Use a unique name if possible
 
 
 $servername = "localhost";
@@ -30,19 +30,26 @@ if ($conn->connect_error) {
 
 if (!empty($product_name)) {
     $stmt = $conn->prepare("INSERT INTO products (name, supplier, price, category, notes, date) VALUES (?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("ssdsss", $product_name, $supplier, $price, $category, $notes, $date);
+    $stmt->bind_param("ssdsss", $product_name, $supplier, $price, $category, $notes, $product_date);
     $stmt->execute();
+    echo $conn->error;
     $stmt->close();
+    $conn->close();
+    header("Location: /DEAPC/admin3.html?success=product");
+    exit();
 }
 
 if (!empty($client_name)) {
-    $stmt = $conn->prepare("INSERT INTO clients (name, email, address, nif, payment, phone, date) VALUES (?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("sssssis", $client_name, $email, $address, $nif, $payment_method, $phone, $client_date);
+    $stmt = $conn->prepare("INSERT INTO clients (nif, name, email, address, payment, phone, date) VALUES (?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("sssssss", $nif, $client_name, $email, $address, $payment_method, $phone, $client_date);
     $stmt->execute();
+    echo $conn->error;
     $stmt->close();
+    $conn->close();
+    header("Location: /DEAPC/admin3.html?success=client");
+    exit();
 }
-
 $conn->close();
-header("Location: /DEAPC/admin3.html");
-exit();
+    header("Location: /DEAPC/admin3.html?success=none");
+    exit();
 ?>
