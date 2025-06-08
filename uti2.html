@@ -1,8 +1,9 @@
 
-
+<!DOCTYPE html>
 <html>
     <head>
-        
+         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title> Relearning HTML</title>
         <link rel="stylesheet" href="styles/style.css">
     </head>
@@ -17,31 +18,40 @@
                 <p>PREPARAR ENCOMENDA</p>
             </div>           
         </header>
-        <div class="top-left">
-            <form method="POST" action = "DOMtest.php">
-                <input type="submit" name="submit" value="submit">
-            </form>
+        <div class="top-left">            
             <p ><button onClick="document.location='Area de Utilizador.html'">Go Back</button></p>
         </div>
         <div class="">
-            <p ><label>Order Number</label><input type="text" id="searchID"><button type="button" onClick="showTables()">Search</button></p>
+            <form action="orderInfo.php" method="POST">
+            <label class="label-font">Order Number </label><input type="text" name="searchID"><button type="Submit">Search</button>
+            <input type="hidden" name="page" value="uti2.html">
+            </form>
         </div>
-        <div class="product-container">
-            <table border="1" hidden>
-                <caption>Order Information</caption>
-                <tr><th>ORDER ID</th><th>CLIENT</th><th>STATUS</th></tr>
-                <tr><td id="orderID">1234</td><td id="client">Sell Thing ltd</td><td id="status">Pending</td></tr>
+        <div class="retangle center" id="infoDiv" style="display:none">
+            <table border="1" id="infoTable" class="retangle">
+                <caption class="label-font center">Order Information</caption>
+                <tr class="label-font"><th>ORDER ID</th>
+                    <th>CLIENT'S NIF</th>
+                    <th>CLIENT'S NAME</th>
+                    <th>STATUS</th>
+                </tr>                
             </table>            
         </div>
-        <div class="retangle below-center">
-            <table border="1" hidden>
+        <div class="retangle below-center" id="tableDiv" style="display:none">
+            <table border="1">
                 <caption>Products</caption>
-                <tr><th>CODE</th><th>NAME</th><th>DESCRIPTION</th><th>QUANTITY</th><th>ADDED TO ORDER</th></tr>
-                <tr><td>1we34</td><td >box</td><td >things in a box</td><td >things in a box</td><td><input type="checkbox" id="added1"></td></tr>
-                <tr><td>1we34</td><td >box</td><td >things in a box</td><td >things in a box</td><td><input type="checkbox" id="added2"></td></tr>
+                <tr><th>PROD ID</th>
+                    <th>NAME</th>
+                    <th>DESCRIPTION</th>
+                    <th>QUANTITY</th>
+                    <th>ADDED TO ORDER</th>
+                </tr>
+
+                <tr id="ed"><td>1we34</td><td >box</td><td >things in a box</td><td >things in a box</td><td><input type="checkbox" name="pRow"></td></tr>
+                <tr><td>1we34</td><td >box</td><td >things in a box</td><td >things in a box</td><td><input type="checkbox" name="pRow"></td></tr>
             </table>
             <div class="center">                
-                <table hidden>                    
+                <table>                    
                     <tr><th></th><th></th></tr>
                     <tr><td><button type="button" id="preped">Prepared</button></td><td ><button type="button" id="sent">Sent</button></td></tr>
                     <tr><td colspan="2"><button type="button"id="cancel" class="center-td">Cancel Order</button></td></tr>
@@ -50,6 +60,20 @@
             </div>         
         </div>
         <script>
+            let checkboxes = document.querySelectorAll("input[type=checkbox][name=pRow]");
+            checkboxes.forEach(grayOnCheck);
+            function grayOnCheck(c){
+                c.addEventListener("change",function(){
+                if(this.checked){
+                        this.parentElement.parentElement.style.backgroundColor="gray";
+                        console.log("gray");
+                }else{
+                    this.parentElement.parentElement.style.backgroundColor="";
+                }
+            });
+            }           
+
+            
             function showTables(){
                 let tables = document.getElementsByTagName("table");
                 for(let table of tables){

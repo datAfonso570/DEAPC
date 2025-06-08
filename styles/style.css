@@ -329,9 +329,6 @@ span:before {
     align-items: center;
 
   }
-  .label-font{
-    flex: 1;
-    border: none;
-    outline: 20px;
-    font-size: 30px;
+  .label-font{    
+    font-size: 20px;
   }

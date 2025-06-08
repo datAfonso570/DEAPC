@@ -30,19 +30,7 @@
                 <input type="hidden" id="selected" name="url" value="uti3.html">
               
         </div>
-        <div id="productsDiv" class="retangle center" style="display:none">
-            <table id="products" border="1">
-                <caption>Product Information</caption>
-                <tr><th>ID</th>
-                    <th>NAME</th>
-                    <th>SUPPLIER</th>
-                    <th>PRICE</th>
-                    <th>CATEGORY</th>
-                    <th>NOTES</th>
-                    <th>DATE</th>
-                    <th>STOCK</th></tr>                
-            </table>            
-        </div>
+        
         <div id="tableDiv" class="retangle center" style="display:none">
                        
         </div>         
@@ -67,87 +55,84 @@
             }catch(e){
                 console.error(e);
             }
-              var formData = new FormData();
-    formData.append("nickname", "johxns");
-    formData.append("password", "john_password");
-    formData.append("email", "john@server.com");*/
+                var formData = new FormData();
+            formData.append("nickname", "johxns");
+            formData.append("password", "john_password");
+            formData.append("email", "john@server.com");*/
 
-    // If I do it this way, and assign this to body inside fetch, it works perfectly
-    // const requestBody = '{"nickname": "johxns","password":"john_password","email":"john@server.com"}';
+            // If I do it this way, and assign this to body inside fetch, it works perfectly
+            // const requestBody = '{"nickname": "johxns","password":"john_password","email":"john@server.com"}';
 
-    fetch("http://localhost/deapc/query.php", {
-        // if instead of formData, I assign requestBody to body, it works!
-        body: formData,        
-        method: "POST"
-    }).then(function(response) {
-        return response.json();
-        //return response.formData();
-        //return response.text();
-    }).then(function(data){
-        //console.log(data);
-        //document.getElementsByTagName("html")[0].innerHTML= data;
-       /*for(let val of data.id3){
-            console.log(val);
-        }
-        for(let val of Object.keys(data)){
-            console.log(data[val]);
-        }
-        for(let val of Object.entries(data)){
-            console.log(val);
-        }*/
-        
-        //let table = document.getElementsByTagName("table").namedItem(data[0].table);
-        
-        /*if(table.rows.length>1){
-            for(let x =1; x<table.rows.length;x++){
-                table.deleteRow(x);
-            }
-        }*/
-        let table= document.createElement("table");
-        table.setAttribute("border","1");
-        let header=table.createTHead();
-        let h=header.insertRow(0);
-        let body = table.createTBody();
-        let cells =0;
-
-        for(let id of Object.keys(data[0])){               
-                if(id != "table"){  
-                    c=h.insertCell(cells);                    
-                    c.textContent= id.toUpperCase();             
-                    cells++;
+            fetch("http://localhost/deapc/query.php", {
+                // if instead of formData, I assign requestBody to body, it works!
+                body: formData,        
+                method: "POST"
+            }).then(function(response) {
+                return response.json();
+                //return response.formData();
+                //return response.text();
+            }).then(function(data){
+                //console.log(data);
+                //document.getElementsByTagName("html")[0].innerHTML= data;
+            /*for(let val of data.id3){
+                    console.log(val);
                 }
-        }
-        for(let row of Object.keys(data)){                       
-            let r=body.insertRow(row);
-            cells=0;
-            for(let id of Object.keys(data[row])){
-               //console.log(id);
-                if(id != "table"){  
-                    c=r.insertCell(cells);
-                    c.id=id+row;
-                    c.textContent= data[row][id];             
-                    cells++;
+                for(let val of Object.keys(data)){
+                    console.log(data[val]);
                 }
+                for(let val of Object.entries(data)){
+                    console.log(val);
+                }*/
+                
+                //let table = document.getElementsByTagName("table").namedItem(data[0].table);
+                
+                /*if(table.rows.length>1){
+                    for(let x =1; x<table.rows.length;x++){
+                        table.deleteRow(x);
+                    }
+                }*/
+                let table= document.createElement("table");
+                table.setAttribute("border","1");
+                let header=table.createTHead();
+                let h=header.insertRow(0);
+                let body = table.createTBody();
+                let cells =0;
 
-            }          
-                        
-            
-           
-            
-        }
+                for(let id of Object.keys(data[0])){               
+                        if(id != "table"){  
+                            c=h.insertCell(cells);                    
+                            c.textContent= id.toUpperCase();             
+                            cells++;
+                        }
+                }
+                for(let row of Object.keys(data)){                       
+                    let r=body.insertRow(row);
+                    cells=0;
+                    for(let id of Object.keys(data[row])){
+                    //console.log(id);
+                        if(id != "table"){  
+                            c=r.insertCell(cells);
+                            c.id=id+row;
+                            c.textContent= data[row][id];             
+                            cells++;
+                        }
+
+                    }          
+                                
+                    
+                
+                    
+                }
+                
+                //let div = data[0].table + "Div";
+                document.getElementById("tableDiv").innerHTML="";
+                document.getElementById("tableDiv").appendChild(table);
+                document.getElementById("tableDiv").style.display="block";
+            }).catch(function(err){
+                console.error(err);
+            });
+    }
+
         
-        //let div = data[0].table + "Div";
-        document.getElementById("tableDiv").innerHTML="";
-        document.getElementById("tableDiv").appendChild(table);
-        document.getElementById("tableDiv").style.display="block";
-    }).catch(function(err){
-        console.error(err);
-    });
-        }
-
-        function showdiv(e){
-            document.getElementById("clientsDiv").style.display="block";
-            
-        }
     </script>
 </html>
