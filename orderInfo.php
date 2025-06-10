@@ -30,22 +30,61 @@
         if($results->num_rows>0){
             while($row=$results->fetch_assoc()){
                 $tr=$htmlDoc->createElement("tr","");
-                $tr->setAttribute("class","label-font");
+                $tr->setAttribute("class","label-font2");
                 foreach($row as $v){
                     $td=$htmlDoc->createElement("td",$v); 
-                    $td->setAttribute("class","label-font");                   
+                    $td->setAttribute("class","label-font2");                   
                     $tr->appendChild($td);                    
                 }
+                $td->setAttribute("id","status");
                 $htmlDoc->getElementById("infoTable")->appendChild($tr);
                 
             }
             $htmlDoc->getElementById("infoDiv")->setAttribute("style","display:block");
             
-            echo $htmlDoc->saveHTML();
+            //echo $htmlDoc->saveHTML();
         }else{
             echo $htmlDoc->saveHTML();
         }
 
+        $checkbox=$htmlDoc->createElement("input","");
+        
+        $results = $db->query($sql1);
+        if($results->num_rows>0){
+            while($row=$results->fetch_assoc()){
+                $tr=$htmlDoc->createElement("tr","");
+                $tr->setAttribute("class","label-font2");                
+                foreach($row as $v){
+                    if($v != $_POST["searchID"]){
+                        $td=$htmlDoc->createElement("td",$v); 
+                        $td->setAttribute("class","label-font2");                   
+                        $tr->appendChild($td);     
+                    }
+                                     
+                }
+                $td=$htmlDoc->createElement("td","");
+                $checkbox=$htmlDoc->createElement("input","");
+                $checkbox->setAttribute("type","checkbox");
+                $checkbox->setAttribute("name","pRow");                    
+                $td->appendChild($checkbox); 
+                $tr->appendChild($td);
+                $htmlDoc->getElementById("orderTable")->appendChild($tr);
+                
+            }
+            $td=$htmlDoc->createElement("td","");
+            $tr=$htmlDoc->createElement("tr","");
+            $hid=$htmlDoc->createElement("input","");
+            $hid->setAttribute("type","hidden");
+            $hid->setAttribute("id","orderID"); 
+             $hid->setAttribute("value",$_POST["searchID"]); 
+            $td->appendChild( $hid); 
+            $htmlDoc->getElementById("buttonsTable")->appendChild($td);
+            $htmlDoc->getElementById("tableDiv")->setAttribute("style","display:block");
+            
+            echo $htmlDoc->saveHTML();
+        }else{
+            echo $htmlDoc->saveHTML();
+        }
         
 
     } 
