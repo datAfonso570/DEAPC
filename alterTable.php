@@ -39,7 +39,8 @@
             $out["noResult"]=true;
             echo json_encode($out);  
         }
-               
+           /*update products set qty =(select qty from orders_products where prod_name='box')+ (select qty from products where id=1)where id=1;
+           update products set qty =(select qty from orders_products where orderID='123DRE' limit 1)+ (select qty from products where id=1)where id=1;*/    
 
     } 
 

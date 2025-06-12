@@ -53,8 +53,8 @@
             <div class="center">                
                 <table id="buttonsTable">                    
                     <tr><th></th><th></th></tr>
-                    <tr><td><button type="button" onClick="jsSubmit(this)" id="prepped">Prepared</button></td><td ><button type="button" id="sent">Sent</button></td></tr>
-                    <tr><td colspan="2"><button type="button"id="cancel" class="center-td">Canceled</button></td></tr>
+                    <tr><td><button type="button" onClick="jsSubmit(this)" id="prepped">Prepared</button></td><td ><button type="button" id="sent" onClick="jsSubmit(this)">Sent</button></td></tr>
+                    <tr><td colspan="2"><button type="button"id="cancel" class="center-td" onClick="jsSubmit(this)">Canceled</button></td></tr>
                     
                 </table>
             </div>         
@@ -66,6 +66,7 @@
                 c.addEventListener("change",function(){
                 if(this.checked){
                         this.parentElement.parentElement.style.backgroundColor="gray";
+                        //this.disabled=true;
                         console.log("gray");
                 }else{
                     this.parentElement.parentElement.style.backgroundColor="";
@@ -77,35 +78,42 @@
             function allChecked(){
                  let checked = Array.from(checkboxes).filter(i=>i.checked);
                 if(checked.length != checkboxes.length){
-                    window.alert("Check all boxes");
+                    console.log("false");
+                    return false;
                 }
+                return true;
             }
 
             function jsSubmit(e){
-                const formData = new FormData();
-                var searchID= document.getElementById("orderID").value;                
-                formData.append("condition",searchID);                
-                formData.append("status",e.textContent);                
+                if(!allChecked()){
+                    window.alert("All rows must be checked before submitting");
+                }else{
+                    const formData = new FormData();
+                    var searchID= document.getElementById("orderID").value;                
+                    formData.append("condition",searchID);                
+                    formData.append("status",e.textContent.toUpperCase());                
 
-                fetch("http://localhost/deapc/alterTable.php", {
-                    // if instead of formData, I assign requestBody to body, it works!
-                    body: formData,        
-                    method: "POST"
-                }).then(function(response) {
-                    return response.json();
-                    //return response.formData();
-                    //return response.text();
-                }).then(function(data){
-                    //console.log(data);
-                    if("noResult" in Object.keys(data[0])){
-                        window.alert("Entry couldn't be updated")
-                    }else{                        
-                        document.getElementById("status").textContent=data[0]["stat"];
-                    }
+                    fetch("http://localhost/deapc/alterTable.php", {
+                        // if instead of formData, I assign requestBody to body, it works!
+                        body: formData,        
+                        method: "POST"
+                    }).then(function(response) {
+                        return response.json();
+                        //return response.formData();
+                        //return response.text();
+                    }).then(function(data){
+                        //console.log(data);
+                        if("noResult" in Object.keys(data[0])){
+                            window.alert("Entry couldn't be updated")
+                        }else{                        
+                            document.getElementById("status").textContent=data[0]["stat"];
+                        }
 
-                }).catch(function(err){
-                    console.error(err);
-                });
+                    }).catch(function(err){
+                        console.error(err);
+                    });
+                }
+                
             }
         </script>
     </body>
