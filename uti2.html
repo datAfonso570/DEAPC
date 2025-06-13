@@ -46,15 +46,13 @@
                     <th>QUANTITY</th>
                     <th>ADDED TO ORDER</th>
                 </tr>
-
-                <tr id="ed"><td>1we34</td><td >box</td><td >things in a box</td><td >things in a box</td><td><input type="checkbox" name="pRow"></td></tr>
-                <tr><td>1we34</td><td >box</td><td >things in a box</td><td >things in a box</td><td><input type="checkbox" name="pRow"></td></tr>
+                
             </table>
             <div class="center">                
                 <table id="buttonsTable">                    
                     <tr><th></th><th></th></tr>
                     <tr><td><button type="button" onClick="jsSubmit(this)" id="prepped">Prepared</button></td><td ><button type="button" id="sent" onClick="jsSubmit(this)">Sent</button></td></tr>
-                    <tr><td colspan="2"><button type="button"id="cancel" class="center-td" onClick="jsSubmit(this)">Canceled</button></td></tr>
+                    <tr><td colspan="2"><button type="button"id="cancel" class="center-td" onClick="jsSubmit(this)">Cancelled</button></td></tr>
                     
                 </table>
             </div>         
@@ -72,20 +70,19 @@
                     this.parentElement.parentElement.style.backgroundColor="";
                 }
             });
-            }           
+            }         
 
             
             function allChecked(){
                  let checked = Array.from(checkboxes).filter(i=>i.checked);
-                if(checked.length != checkboxes.length){
-                    console.log("false");
+                if(checked.length != checkboxes.length){                    
                     return false;
                 }
                 return true;
             }
 
             function jsSubmit(e){
-                if(!allChecked()){
+                if(!allChecked() && e.id != "cancel"){
                     window.alert("All rows must be checked before submitting");
                 }else{
                     const formData = new FormData();
@@ -105,8 +102,23 @@
                         //console.log(data);
                         if("noResult" in Object.keys(data[0])){
                             window.alert("Entry couldn't be updated")
-                        }else{                        
+                        }else{
+                                                 
                             document.getElementById("status").textContent=data[0]["stat"];
+                            if(data[0]["stat"]==" SENT"){
+                                
+                                checkboxes.forEach(function(e){
+                                    
+                                    e.disabled = true;
+                                    e.checked=true;
+                                });
+                            }else if(data[0]["stat"]==" CANCELLED"){
+                                    checkboxes.forEach(function(e){
+                                    e.disabled = true;
+                                    e.checked=false;
+                                    e.parentElement.parentElement.style.backgroundColor="";
+                                });
+                            }
                         }
 
                     }).catch(function(err){

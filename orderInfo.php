@@ -46,7 +46,8 @@
         }else{
             echo $htmlDoc->saveHTML();
         }
-
+        $status = trim($td->nodeValue);
+        
         $checkbox=$htmlDoc->createElement("input","");
         
         $results = $db->query($sql1);
@@ -65,7 +66,18 @@
                 $td=$htmlDoc->createElement("td","");
                 $checkbox=$htmlDoc->createElement("input","");
                 $checkbox->setAttribute("type","checkbox");
-                $checkbox->setAttribute("name","pRow");                    
+                $checkbox->setAttribute("name","pRow");
+                if(strcmp($status, "CANCELLED")==0){
+                    $checkbox->setAttribute("disabled","");//for boolean attributes you can't use true or false, the moment you create the attribute, it's read as true.
+                    //so if you want the attribute to have a true value, simply create it, if you want a false value don't create the attribute
+                    //$checked = $htmlDoc->createAttribute("checked");
+                    //$checkbox->appendChild($checked);
+                }elseif(strcmp($status, "SENT")==0){
+                    $checkbox->setAttribute("disabled","");                  
+                    
+                    $checkbox->setAttribute("checked","");
+                     
+                }                    
                 $td->appendChild($checkbox); 
                 $tr->appendChild($td);
                 $htmlDoc->getElementById("orderTable")->appendChild($tr);
