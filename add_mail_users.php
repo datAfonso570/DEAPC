@@ -1,11 +1,9 @@
 <?php
 
-// Users
 $form_username = $_POST['username'] ?? null;
 $form_email = $_POST['email'] ?? null;
 $form_role = $_POST['role'] ?? null;
 
-// Transform role to 0 or 1
 if ($form_role=="admin"){
     $role_value=1;
 }
