@@ -1,0 +1,26 @@
+<?php
+$servername = "localhost";
+$db_username = "Marcel";
+$db_password = "1234";
+$dbname = "deapc";
+
+$conn = new mysqli($servername, $db_username, $db_password, $dbname);
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+$sql = "SELECT username, email, adm FROM users";
+$result = $conn->query($sql);
+
+while ($row = $result->fetch_assoc()) {
+    $role = $row['adm'] ? 'Admin' : 'User';
+    echo "<tr>
+        <td>{$row['username']}</td>
+        <td>{$row['email']}</td>
+        <td>{$role}</td>
+        <td><span class='status-offline'>Offline</span></td>
+    </tr>";
+}
+
+$conn->close();
+?>
