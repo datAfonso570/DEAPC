@@ -27,6 +27,7 @@
         $htmlDoc->loadHTMLFile($_POST["page"]);
                    
         $results = $db->query($sql2);
+        
         if($results->num_rows>0){
             while($row=$results->fetch_assoc()){
                 $tr=$htmlDoc->createElement("tr","");
@@ -77,6 +78,8 @@
                     
                     $checkbox->setAttribute("checked","");
                      
+                }elseif(strcmp($status, "PREPARED")==0){
+                    $checkbox->setAttribute("checked","");
                 }                    
                 $td->appendChild($checkbox); 
                 $tr->appendChild($td);

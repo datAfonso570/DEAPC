@@ -29,6 +29,16 @@
                             }
                         
                         }
+                        $url="localhost/deapc/".$_POST["url"];
+                        //include($_POST["url"]);
+                        $htmlDoc = new DOMDocument();
+                        $htmlDoc->loadHTMLFile($_POST["url"]);
+                        echo $htmlDoc->saveHTML();
+                        /*$id='orderID';
+                        $htmlDoc->getElementbyID($id)->nodeValue="changed2 again";
+                        echo $htmlDoc->saveHTML();*/
+                        //$result= $db->query("SELECT * FROM products WHERE id=1");
+        //var_export($result->fetch_assoc());
                     ?>
         </table>
     </body>

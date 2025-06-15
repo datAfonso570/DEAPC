@@ -18,8 +18,8 @@ $client_date     = $_POST['client_date'] ?? ($_POST['date'] ?? null); // Use a u
 
 
 $servername = "localhost";
-$username = "datfonso25";
-$password = "lasanha123";
+$username = "Marcel";
+$password = "1234";
 $dbname = "deapc";
 
 $conn = new mysqli($servername, $username, $password, $dbname);

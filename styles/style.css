@@ -393,7 +393,16 @@ span:before {
 .center-td {
     align-items: center;
 
-}
+
+  }
+  .label-font{    
+    font-size: 20px;
+  }
+  .label-font2{    
+    font-size: 16px;
+  }
+
+
 
 .users-container {
     display: flex;
@@ -642,3 +651,4 @@ span:before {
     gap: 12px;
     margin-top: 24px;
 }
+
