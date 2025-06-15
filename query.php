@@ -8,13 +8,13 @@
     
 
     libxml_use_internal_errors(true); 
-    $servername= "localhost";
-    $username = "ap";
-    $password = "741a963";
-    $dbname = "deapc";  
+    $servername = "localhost";
+$db_username = "datfonso25";
+$db_password = "lasanha123";
+$dbname = "deapc"; 
    
     if($_SERVER["REQUEST_METHOD"]=="POST"){
-        $db = new mysqli($servername, $username, $password, $dbname);
+        $db = new mysqli($servername, $db_username, $db_password, $dbname);
         if($db->connect_error){
             die("Connection failed: " . $conn->connect_error);
         }

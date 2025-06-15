@@ -1,3 +1,17 @@
+<?php
+session_start();
+
+// Verifica se o utilizador está autenticado
+if (!isset($_SESSION['username'])) {
+    header("Location: index.html"); // Manda para o login 
+    session_destroy();
+    exit();
+}
+
+$nome = htmlspecialchars($_SESSION['username']);
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,7 +32,7 @@
             <p>USER MANAGEMENT</p>
         </div>
     </header>
-    <button onclick="window.location.href='admin1.html'" class="top-left">Go Back</button>
+    <button onclick="window.location.href='admin1.php'" class="top-left">Go Back</button>
     <div class="users-container">
         <form class="add-user-form" action="add_mail_users.php" method="POST">
             <h2>Add User</h2>
