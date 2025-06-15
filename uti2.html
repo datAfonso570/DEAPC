@@ -18,8 +18,9 @@
                 <p>PREPARAR ENCOMENDA</p>
             </div>           
         </header>
-        <div class="top-left">
-            <p ><button onClick="document.location='file:///home/deapc1na/Documents/searchProdClient.html'">Go Back</button></p>
+        <div class="top-left">            
+            <p ><button onClick="document.location='Area de Utilizador.html'">Go Back</button></p>
+        
         </div>
         <div class="">
             <form action="orderInfo.php" method="POST">
@@ -95,13 +96,14 @@
                         body: formData,        
                         method: "POST"
                     }).then(function(response) {
+                        
                         return response.json();
                         //return response.formData();
                         //return response.text();
                     }).then(function(data){
                         //console.log(data);
                         if("noResult" in Object.keys(data[0])){
-                            window.alert("Entry couldn't be updated")
+                            window.alert("Entry couldn't be updated");
                         }else{
                                                  
                             document.getElementById("status").textContent=data[0]["stat"];
@@ -118,6 +120,9 @@
                                     e.checked=false;
                                     e.parentElement.parentElement.style.backgroundColor="";
                                 });
+                            }
+                            if(data["cancelled"]){
+                                window.alert("order cancelled");
                             }
                         }
 
