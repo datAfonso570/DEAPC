@@ -1,4 +1,17 @@
 <?php
+
+
+session_start();
+
+// Verifica se o utilizador está autenticado
+if (!isset($_SESSION['username'])) {
+    header("Location: index.html"); // Manda para o login 
+    exit();
+}
+
+$nome = htmlspecialchars($_SESSION['username']);
+
+
 // Produtos
 $product_name    = $_POST['product_name'] ?? null;
 $supplier        = $_POST['supplier'] ?? null;
@@ -18,11 +31,11 @@ $client_date     = $_POST['client_date'] ?? ($_POST['date'] ?? null); // Use a u
 
 
 $servername = "localhost";
-$username = "Marcel";
-$password = "1234";
+$db_username = "datfonso25";
+$db_password = "lasanha123";
 $dbname = "deapc";
 
-$conn = new mysqli($servername, $username, $password, $dbname);
+$conn = new mysqli($servername, $db_username, $db_password, $dbname);
 
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);

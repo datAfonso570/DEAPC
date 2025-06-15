@@ -1,3 +1,16 @@
+<?php
+session_start();
+
+// Verifica se o utilizador está autenticado
+if (!isset($_SESSION['username'])) {
+    header("Location: index.html"); // Manda para o login 
+    session_destroy();
+    exit();
+}
+
+$nome = htmlspecialchars($_SESSION['username']);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,7 +30,7 @@
             <p>STOCK/CLIENT MANAGEMENT</p>
         </div>
     </header>
-    <button onclick="window.location.href='admin1.html'" class="top-left">Go Back</button>
+    <button onclick="window.location.href='admin1.php'" class="top-left">Go Back</button>
     <div class="search-container">
         <form method="POST" action="admin2.php" class="search-form">
             <input type="text" class="search-input" name="nif_product" placeholder="Product ID/Client NIF" required value="<?php echo htmlspecialchars($_POST['nif_product'] ?? ''); ?>" />

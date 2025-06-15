@@ -1,3 +1,17 @@
+<?php
+session_start();
+
+// Verifica se o utilizador está autenticado
+if (!isset($_SESSION['username'])||$_SESSION['role']=='user') {
+    header("Location: index.html"); // Manda para o login
+    session_destroy(); 
+    exit();
+}
+
+$nome = htmlspecialchars($_SESSION['username']);
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,8 +33,8 @@
             <p>ADM Inventories</p>
         </div>
   </header>
-  <button onclick="window.location.href='admin4.html'"class="admin-button">Manage or Create Order</button><br><br>
-  <button onclick="window.location.href='admin3.html'"class="admin-button">Add Client or Product</button><br><br>
+  <button onclick="window.location.href='admin4.php'"class="admin-button">Manage or Create Order</button><br><br>
+  <button onclick="window.location.href='admin3.php'"class="admin-button">Add Client or Product</button><br><br>
   <button onclick="window.location.href='admin2.php'"class="admin-button">Stock/Client Management</button><br><br>
   <button onclick="window.location.href='admin5.php'"class="admin-button">Add/View Users</button><br><br>
 </form>
