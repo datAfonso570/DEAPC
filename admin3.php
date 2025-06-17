@@ -3,9 +3,9 @@ session_start();
 
 // Verifica se o utilizador está autenticado
 if (!isset($_SESSION['username'])) {
-    header("Location: index.html"); // Manda para o login 
-    session_destroy();
-    exit();
+  header("Location: index.html"); // Manda para o login 
+  session_destroy();
+  exit();
 }
 
 $nome = htmlspecialchars($_SESSION['username']);
@@ -13,6 +13,7 @@ $nome = htmlspecialchars($_SESSION['username']);
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Área Administrador</title>
@@ -23,7 +24,7 @@ $nome = htmlspecialchars($_SESSION['username']);
   <header class="site-header">
     <div class="logo">
       <a href="index.html">
-      <img src="images/logo1.png">
+        <img src="images/logo1.png">
       </a>
     </div>
     <div class="header-text-container">
@@ -31,7 +32,9 @@ $nome = htmlspecialchars($_SESSION['username']);
       <p>NEW CLIENT/PRODUCT</p>
     </div>
   </header>
-  <button onclick="window.location.href='admin1.php'" class="top-left">Go Back</button>
+  <div style="text-align:left;">
+    <button onclick="window.location.href='admin1.php'" class="go-back-btn">Go Back</button>
+</div>
   <div class="fieldset-wrapper">
     <fieldset class="select_product_client">
       <div class="radio-group">
@@ -61,7 +64,7 @@ $nome = htmlspecialchars($_SESSION['username']);
           <div class="method-option category-option">Furniture</div>
           <div class="method-option category-option">Software</div>
           <div class="method-option category-option">Other</div>
-        </div>  
+        </div>
       </div>
       <input type="text" name="notes" placeholder="NOTES:"><br>
       <input type="date" name="date" placeholder="Date:" required><br>

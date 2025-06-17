@@ -35,7 +35,7 @@ if ($result->num_rows === 1) {
 
         // Redirecionar
         if ($user['adm'] == 1) {
-            header("Location: /DEAPC/admin1.html");
+            header("Location: /DEAPC/admin1.php");
         } else {
             header("Location: /DEAPC/uti1.php");
         }
