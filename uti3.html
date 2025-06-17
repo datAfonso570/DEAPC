@@ -1,79 +1,82 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title> Relearning HTML</title>
-        <link rel="stylesheet" href="styles/style.css">
-    </head>
-    <body class="general-body">
-        <header class="site-header">
-            <div class="logo">
-                <img src="images/logo1.png" alt="Company Logo">
-            </div>  
-            <div class="header-text-container">
-                <h1>ÁREA UTILIZADOR</h1>
-                <p>CLIENTE E PRODUTO INFO</p>
-            </div>           
-        </header>
-        <div class="top-left">
-            <p ><button onClick="document.location='uti1.php'">Go Back</button></p>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Relearning HTML</title>
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+
+<body class="general-body">
+    <header class="site-header">
+        <div class="logo">
+            <img src="images/logo1.png" alt="Company Logo">
         </div>
-        <div class="">
-             
-            <label class="label-font">Look up</label>
-                <select id="searchFor">
-                    <option value="clients">Client</option>
-                    <option value="products">Product</option>
-                </select>                          
-                <p ><label class="label-font">ID </label><input type="text" id="searchID" name="searchID"><button type="button" onClick="jsSubmit()">Search</button></p>
-                <input type="hidden" id="selected" name="url" value="uti3.html">
-              
+        <div class="header-text-container">
+            <h1>ÁREA UTILIZADOR</h1>
+            <p>CLIENTE E PRODUTO INFO</p>
         </div>
-        
-        <div id="tableDiv" class="retangle center" style="display:none">
-                       
-        </div>         
-    </body>
-    <script>
+    </header>
+    <div class="top-left">
+        <p><button onClick="document.location='uti1.php'">Go Back</button></p>
+    </div>
+    <div class="">
 
-        
-        function jsSubmit(){
-            const formData = new FormData();
-            var searchID= document.getElementById("searchID").value;
-            var selector = document.getElementById("searchFor");
-            var selected = selector.options[selector.selectedIndex].value;
-            formData.append("condition",searchID);
-            formData.append("table",selected);
-            formData.append("url",document.getElementById("selected").value);
-            /*
-            try{
-                const response = fetch("http://localhost/deapc/query.php", {                    
-                    method: 'POST',
-                    body: formData,                     
-                });                
-            }catch(e){
-                console.error(e);
-            }
-                var formData = new FormData();
-            formData.append("nickname", "johxns");
-            formData.append("password", "john_password");
-            formData.append("email", "john@server.com");*/
+        <label class="label-font">Look up</label>
+        <select id="searchFor">
+            <option value="clients">Client</option>
+            <option value="products">Product</option>
+        </select>
+        <p><label class="label-font">ID </label><input type="text" id="searchID" name="searchID"><button type="button"
+                onClick="jsSubmit()">Search</button></p>
+        <input type="hidden" id="selected" name="url" value="uti3.html">
 
-            // If I do it this way, and assign this to body inside fetch, it works perfectly
-            // const requestBody = '{"nickname": "johxns","password":"john_password","email":"john@server.com"}';
+    </div>
 
-            fetch("http://localhost/deapc/query.php", {
-                // if instead of formData, I assign requestBody to body, it works!
-                body: formData,        
-                method: "POST"
-            }).then(function(response) {
-                return response.json();
-                //return response.formData();
-                //return response.text();
-            }).then(function(data){
-                //console.log(data);
-                //document.getElementsByTagName("html")[0].innerHTML= data;
+    <div id="tableDiv" class="retangle center" style="display:none">
+
+    </div>
+</body>
+<script>
+
+
+    function jsSubmit() {
+        const formData = new FormData();
+        var searchID = document.getElementById("searchID").value;
+        var selector = document.getElementById("searchFor");
+        var selected = selector.options[selector.selectedIndex].value;
+        formData.append("condition", searchID);
+        formData.append("table", selected);
+        formData.append("url", document.getElementById("selected").value);
+        /*
+        try{
+            const response = fetch("http://localhost/deapc/query.php", {                    
+                method: 'POST',
+                body: formData,                     
+            });                
+        }catch(e){
+            console.error(e);
+        }
+            var formData = new FormData();
+        formData.append("nickname", "johxns");
+        formData.append("password", "john_password");
+        formData.append("email", "john@server.com");*/
+
+        // If I do it this way, and assign this to body inside fetch, it works perfectly
+        // const requestBody = '{"nickname": "johxns","password":"john_password","email":"john@server.com"}';
+
+        fetch("http://localhost/deapc/query.php", {
+            // if instead of formData, I assign requestBody to body, it works!
+            body: formData,
+            method: "POST"
+        }).then(function (response) {
+            return response.json();
+            //return response.formData();
+            //return response.text();
+        }).then(function (data) {
+            //console.log(data);
+            //document.getElementsByTagName("html")[0].innerHTML= data;
             /*for(let val of data.id3){
                     console.log(val);
                 }
@@ -83,56 +86,57 @@
                 for(let val of Object.entries(data)){
                     console.log(val);
                 }*/
-                
-                //let table = document.getElementsByTagName("table").namedItem(data[0].table);
-                
-                /*if(table.rows.length>1){
-                    for(let x =1; x<table.rows.length;x++){
-                        table.deleteRow(x);
-                    }
-                }*/
-                let table= document.createElement("table");
-                table.setAttribute("border","1");
-                let header=table.createTHead();
-                let h=header.insertRow(0);
-                let body = table.createTBody();
-                let cells =0;
 
-                for(let id of Object.keys(data[0])){               
-                        if(id != "table"){  
-                            c=h.insertCell(cells);                    
-                            c.textContent= id.toUpperCase();             
-                            cells++;
-                        }
+            //let table = document.getElementsByTagName("table").namedItem(data[0].table);
+
+            /*if(table.rows.length>1){
+                for(let x =1; x<table.rows.length;x++){
+                    table.deleteRow(x);
                 }
-                for(let row of Object.keys(data)){                       
-                    let r=body.insertRow(row);
-                    cells=0;
-                    for(let id of Object.keys(data[row])){
+            }*/
+            let table = document.createElement("table");
+            table.setAttribute("border", "1");
+            let header = table.createTHead();
+            let h = header.insertRow(0);
+            let body = table.createTBody();
+            let cells = 0;
+
+            for (let id of Object.keys(data[0])) {
+                if (id != "table") {
+                    c = h.insertCell(cells);
+                    c.textContent = id.toUpperCase();
+                    cells++;
+                }
+            }
+            for (let row of Object.keys(data)) {
+                let r = body.insertRow(row);
+                cells = 0;
+                for (let id of Object.keys(data[row])) {
                     //console.log(id);
-                        if(id != "table"){  
-                            c=r.insertCell(cells);
-                            c.id=id+row;
-                            c.textContent= data[row][id];             
-                            cells++;
-                        }
+                    if (id != "table") {
+                        c = r.insertCell(cells);
+                        c.id = id + row;
+                        c.textContent = data[row][id];
+                        cells++;
+                    }
 
-                    }          
-                                
-                    
-                
-                    
                 }
-                
-                //let div = data[0].table + "Div";
-                document.getElementById("tableDiv").innerHTML="";
-                document.getElementById("tableDiv").appendChild(table);
-                document.getElementById("tableDiv").style.display="block";
-            }).catch(function(err){
-                console.error(err);
-            });
+
+
+
+
+            }
+
+            //let div = data[0].table + "Div";
+            document.getElementById("tableDiv").innerHTML = "";
+            document.getElementById("tableDiv").appendChild(table);
+            document.getElementById("tableDiv").style.display = "block";
+        }).catch(function (err) {
+            console.error(err);
+        });
     }
 
-        
-    </script>
+
+</script>
+
 </html>

@@ -14,10 +14,10 @@ $form_username = $_POST['username'] ?? null;
 $form_email = $_POST['email'] ?? null;
 $form_role = $_POST['role'] ?? null;
 
-if ($form_role=="admin"){
-    $role_value=1;
-}
-else{ $role_value=0;
+if ($form_role == "admin") {
+    $role_value = 1;
+} else {
+    $role_value = 0;
 }
 
 $servername = "localhost";
