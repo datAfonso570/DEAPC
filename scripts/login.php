@@ -28,7 +28,7 @@ $result = $stmt->get_result();
 if ($result->num_rows === 1) {
     $user = $result->fetch_assoc();
 
-    // Verificar se a password está correta (sem hash, como no seu print do phpMyAdmin)
+    // Verificar se a password está correta 
     if ($password === $user['passw']) {
         $_SESSION['username'] = $user['username'];
         $_SESSION['role'] = $user['adm'] == 1 ? 'admin' : 'user';
