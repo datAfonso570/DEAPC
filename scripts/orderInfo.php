@@ -8,8 +8,8 @@
 
 libxml_use_internal_errors(true);
 $servername = "localhost";
-$db_username = "datfonso25";
-$db_password = "lasanha123";
+$db_username = "Marcel";
+$db_password = "1234";
 $dbname = "deapc";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {

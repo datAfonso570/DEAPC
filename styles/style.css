@@ -779,3 +779,177 @@ span:before {
 .wide-input {
     width: 250px;
 }
+
+
+.login-box {
+    font-size: large;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f0d3b3;
+    padding: 25px;
+    border: 5px solid #a67c52;
+    border-radius: 10px;
+    width: 290px;
+    margin: 20px auto;
+    padding: 24px 20px 18px 20px;
+    box-shadow: 0 2px 8px rgba(77, 46, 8, 0.08);
+  }
+
+  .login-box h2 {
+    text-align: left;
+    margin-bottom: 20px;
+  }
+
+  .login-box label {
+    display: block;
+    font-weight: bold;
+  }
+
+  .login-box input {
+    width: 80%;
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+  }
+
+  .login-box button {
+    width: 40%;
+    padding: 10px;
+    margin-top: 15px;
+    background-color: #a67c52;
+    color: #fff;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.2s;
+    margin-bottom: 20px;
+  }
+
+  .login-box button:hover {
+     background-color: #cc6600;
+  }
+
+    .caixa-texto {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f0d3b3;
+    color: rgb(2, 2, 2);
+    border: 5px solid #a67c52;
+    border-radius: 10px;
+    padding: 25px;
+    margin: 50px auto 50px auto;
+    max-width: 700px;
+    border-radius: 10px;
+    font-size: 16px;
+    line-height: 1.5;
+    text-align: left;
+  }
+
+
+footer {
+  background-color: #3e260b ;
+  color: #ffffff;
+  padding: 20px 0;
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+.socials {
+  margin-bottom: 10px;
+}
+
+.socials a {
+  display: inline-block;
+  margin: 0 10px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.socials a:hover {
+  transform: scale(1.2);
+  opacity: 0.8;
+}
+
+.socials img {
+  width: 32px;
+  height: 32px;
+  vertical-align: middle;
+}
+
+.footer-base {
+  border-top: 1px solid rgb(141, 117, 88);
+  padding-top: 10px;
+  font-size: 14px;
+  color: #ccc;
+}
+
+
+.User-header {
+  max-width: 350px;
+  width: 100%;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 22px;
+  padding: 10px 25px;
+  margin: 10px 0 0 0; /* só margem topo pequena */
+  background-color: #f0d3b3;
+  border: 5px solid #a67c52;
+  color: rgb(2, 2, 2);
+  border-radius: 10px;
+  text-align: left;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  /* sem position absolute para ficar no fluxo normal */
+}
+.User-header p {
+  margin: 0;       /* tira espaçamento padrão do p */
+  line-height: 1.2; /* espaçamento compacto entre linhas */
+}
+
+.User-header button {
+  margin-left: 15px;
+  padding: 5px 12px;
+  background-color: #a67c52;
+  border: none;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9em;
+  vertical-align: middle;
+}
+
+.User-header button:hover {
+  background-color: #8a6641;
+}
+
+.user-area {
+    font-size: 22px;
+  max-width: 400px;
+  margin: 30px auto;
+  padding: 20px 30px;
+  background-color: #f0d3b3;
+  border: 3px solid #a67c52;
+  border-radius: 12px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+.user-area h2 {
+  margin-bottom: 20px;
+  color: #5a3e1b;
+}
+
+.botoes button {
+padding: 12px 32px;
+    background: #a67c52;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s;
+    box-shadow: 0 2px 6px rgba(77, 46, 8, 0.08);
+}
+
+.botoes button:hover {
+    background: #cc6600;
+}

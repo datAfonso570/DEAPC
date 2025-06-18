@@ -25,20 +25,21 @@ $nome = htmlspecialchars($_SESSION['username']);
     <div class="logo">
       <img src="images/logo1.png" alt="Logo">
     </div>
-    <strong class="admin-text">ÁREA DE UTILIZADOR</strong>
+    <strong class="header-text-container">USER AREA</strong>
   </header>
 
   <header class="User-header">
-    <p><b>Utilizador:</b> <?= $nome ?></p>
+    <p><b>User:</b> <?= $nome ?>
+    <button onclick="location.href='scripts/logout.php'">Logout</button></p>
   </header>
 
   <div class="user-area">
     <h2>Selecionar:</h2>
 
     <div class="botoes">
-      <button onclick="location.href='uti2.html'">Gerir Encomenda</button>
-      <p><button onclick="location.href='uti3.html'">Verificar Stock/Cliente</button></p>
-      <button onclick="location.href='index.html'">Voltar ao Início</button>
+      <button onclick="location.href='uti2.php'">Manage Order</button>
+      <p><button onclick="location.href='uti3.php'">Verify Stock/Customer</button></p>
+      <button onclick="location.href='index.html'">Return to Home</button>
     </div>
   </div>
 </body>

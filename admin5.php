@@ -34,6 +34,12 @@ $nome = htmlspecialchars($_SESSION['username']);
             <p>USER MANAGEMENT</p>
         </div>
     </header>
+
+     <header class="User-header">
+    <p><b>User:</b> <?= $nome ?>
+    <button onclick="location.href='scripts/logout.php'">Logout</button></p>
+  </header>
+  
     <div style="text-align:left;">
     <button onclick="window.location.href='admin1.php'" class="go-back-btn">Go Back</button>
 </div>

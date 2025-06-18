@@ -1,3 +1,15 @@
+<?php
+session_start();
+
+// Verifica se o utilizador está autenticado
+if (!isset($_SESSION['username'])) {
+  header("Location: index.html"); // Manda para o login 
+  exit();
+}
+
+$nome = htmlspecialchars($_SESSION['username']);
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -19,6 +31,13 @@
             <p>PREPARAR ENCOMENDA</p>
         </div>
     </header>
+
+      <header class="User-header">
+    <p><b>User:</b> <?= $nome ?>
+    <button onclick="location.href='scripts/logout.php'">Logout</button></p>
+  </header>
+
+  
     <div class="top-left">
         <p><button onClick="document.location='uti1.php'">Go Back</button></p>
 

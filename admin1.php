@@ -34,7 +34,13 @@ $nome = htmlspecialchars($_SESSION['username']);
       <p>ADM Inventories</p>
     </div>
   </header>
-  <button onclick="window.location.href='admin4.html'" class="admin-button">Manage or Create Order</button><br><br>
+
+  <header class="User-header">
+    <p><b>User:</b> <?= $nome ?>
+    <button onclick="location.href='scripts/logout.php'">Logout</button></p>
+  </header>
+
+  <button onclick="window.location.href='admin4.php'" class="admin-button">Manage or Create Order</button><br><br>
   <button onclick="window.location.href='admin3.php'" class="admin-button">Add Client or Product</button><br><br>
   <button onclick="window.location.href='admin2.php'" class="admin-button">Stock/Client Management</button><br><br>
   <button onclick="window.location.href='admin5.php'" class="admin-button">Add/View Users</button><br><br>

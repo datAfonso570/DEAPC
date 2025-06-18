@@ -1,7 +1,7 @@
 <?php
 $servername = "localhost";
-$db_username = "datfonso25";
-$db_password = "lasanha123";
+$db_username = "Marcel";
+$db_password = "1234";
 $dbname = "deapc";
 
 // Conexão
@@ -28,8 +28,8 @@ $result = $stmt->get_result();
 if ($result->num_rows === 1) {
     $user = $result->fetch_assoc();
 
-    // Verificar se a password está correta (sem hash, como no seu print do phpMyAdmin)
-    if ($password === $user['passw']) {
+    // Verificar se a password está correta
+     if ($password === $user['passw']) {
         $_SESSION['username'] = $user['username'];
         $_SESSION['role'] = $user['adm'] == 1 ? 'admin' : 'user';
 

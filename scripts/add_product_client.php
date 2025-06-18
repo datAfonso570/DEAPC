@@ -19,8 +19,8 @@ $client_date = $_POST['client_date'] ?? ($_POST['date'] ?? null); // Use a uniqu
 
 
 $servername = "localhost";
-$db_username = "datfonso25";
-$db_password = "lasanha123";
+$db_username = "Marcel";
+$db_password = "1234";
 $dbname = "deapc";
 
 $conn = new mysqli($servername, $db_username, $db_password, $dbname);
