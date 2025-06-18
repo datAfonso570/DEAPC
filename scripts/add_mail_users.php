@@ -21,8 +21,8 @@ if ($form_role == "admin") {
 }
 
 $servername = "localhost";
-$db_username = "Marcel";
-$db_password = "1234";
+$db_username = "datfonso25";
+$db_password = "lasanha123";
 $dbname = "deapc";
 
 $conn = new mysqli($servername, $db_username, $db_password, $dbname);
