@@ -1,126 +1,235 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <title> Relearning HTML</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relearning HTML</title>
     <link rel="stylesheet" href="styles/style.css">
 </head>
 
 <body class="general-body">
     <header class="site-header">
         <div class="logo">
-            <a href="index.html">
-      <img src="images/logo1.png">
-      </a>
+            <img src="images/logo1.png" alt="Company Logo">
         </div>
         <div class="header-text-container">
-            <h1>AREA UTILIZADOR</h1>
-            <p>PREPARAR ENCOMENDA</p>
+            <h1>ADMIN AREA</h1>
+            <p>PREPARE / CREATE ORDER</p>
         </div>
     </header>
-    <div class="top-left">
-        <p><button onclick="window.location.href='admin1.html'" class="top-left">Go Back</button></p>
+    <div style="text-align:left;">
+    <button onclick="window.location.href='admin1.php'" class="go-back-btn">Go Back</button>
+</div>
+    <!-- Radio Buttons -->
+    <div class="order-radio-group">
+        <label>
+            <input type="radio" name="order_action" id="Search" value="search" checked>
+            Search Order
+        </label>
+        <label>
+            <input type="radio" name="order_action" id="Create" value="create">
+            Create Order
+        </label>
     </div>
-    <div class="">
-        <label for="searchID">Order Number</label><br>
-        <input type="text" id="searchID">
-        <br>
-        <button type="button" style="margin-top:8px;">Search</button>
-        <br>
-        <button type="button" style="margin-top:8px;">Create</button>
-    </div>
-    <div class="product-container">
-        <table border="1">
-            <caption>Order Information</caption>
-            <tr>
-                <th>ORDER ID</th>
-                <th>CLIENT</th>
-                <th>STATUS</th>
-            </tr>
-            <tr>
-                <td id="orderID">1234</td>
-                <td id="client">Sell Thing ltd</td>
-                <td id="status">Pending</td>
-            </tr>
-        </table>
-    </div>
-    </div>
-    </div>
-    <div class="retangle below-center">
-        <table border="1">
-            <caption>Products</caption>
-            <tr>
-                <th>CODE</th>
-                <th>NAME</th>
-                <th>DESCRIPTION</th>
-                <th>QUANTITY</th>
-                <th>ADDED TO ORDER</th>
-            </tr>
-            <tr>
-                <td>1we34</td>
-                <td>box</td>
-                <td>things in a box</td>
-                <td>things in a box</td>
-                <td><input type="checkbox" id="added1"></td>
-            </tr>
-            <tr>
-                <td>1we34</td>
-                <td>box</td>
-                <td>things in a box</td>
-                <td>things in a box</td>
-                <td><input type="checkbox" id="added2"></td>
-            </tr>
-        </table>
-        <div class="center">
-            <table>
-                <tr>
-                    <th></th>
-                    <th></th>
-                </tr>
-                <tr>
-                    <td><button type="button" id="preped">Prepared</button></td>
-                    <td><button type="button" id="sent">Sent</button></td>
-                </tr>
-                <tr>
-                    <td colspan="2"><button type="button" id="cancel" class="center-td">Cancel Order</button></td>
-                </tr>
 
-            </table>
+    <!-- CREATE ORDER SECTION -->
+    <div id="create_order_section">
+        <div class="retangle below-center">
+            <form id="createOrderForm" action="create_order.php" method="POST">
+                <table border="1" id="orderProductsTable">
+                    <caption><strong>Create New Order</strong></caption>
+                    <tr>
+                        <th>CODE</th>
+                        <th>QUANTITY</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input list="product_codes" name="code[]" id="product_code" required>
+                            <datalist id="product_codes"></datalist>
+                            <script>
+                                fetch('datalists.php?type=products')
+                                    .then(response => response.text())
+                                    .then(data => {
+                                        document.getElementById('product_codes').innerHTML = data;
+                                    });
+                            </script>
+                        </td>
+                        <td><input type="number" name="quantity[]" min="1" required></td>
+                        <td>
+                            <button type="button" onclick="this.closest('tr').remove()" aria-label="Remove row">🗑️</button>
+                        </td>
+                    </tr>
+                </table>
+                <div class="center" style="margin-top: 10px;">
+                    <button type="button" onclick="addProductRow()">Add Product</button>
+                </div>
+                <div class="center" style="margin-top: 10px;">
+                    <label for="clientNIF"><strong>Client NIF:</strong></label>
+                    <input list="client_nifs" id="clientNIF" name="clientNIF" class="wide-input" required>
+                    <datalist id="client_nifs"></datalist>
+                    <script>
+                        fetch('datalists.php?type=clients')
+                            .then(response => response.text())
+                            .then(data => {
+                                document.getElementById('client_nifs').innerHTML = data;
+                            });
+                    </script>
+                </div>
+                <div class="center" style="margin-top: 10px;">
+                    <button type="submit" id="createOrder">Create Order</button>
+                </div>
+            </form>
         </div>
     </div>
-    <div class="retangle below-center">
-        <form id="createOrderForm">
-            <table border="1" id="orderProductsTable">
-                <caption><strong>Create New Order</strong></caption>
+
+    <!-- SEARCH ORDER SECTION -->
+    <div id="search_order_section" style="display:none">
+        <div class="retangle below-center search-retangle">
+            <form action="search_order.php" method="POST" >
+                <label class="label-font" for="searchID"><strong>Order Number</strong></label>
+                <input list="order_numbers" type="text" name="searchID" id="searchID" required>
+                <datalist id="order_numbers"></datalist>
+                <script>
+                fetch('datalists.php?type=orders')
+                  .then(response => response.text())
+                  .then(data => {
+                    document.getElementById('order_numbers').innerHTML = data;
+                  });
+                </script>
+                <input type="hidden" name="page" value="admin4.html">
+                <button type="submit">Search</button>
+            </form>
+        </div>
+        <div class="retangle below-center" id="infoDiv" style="display:none">
+            <table border="1" id="infoTable" class="retangle">
+                <caption class="label-font center">Order Information</caption>
                 <tr>
-                    <th>CODE</th>
-                    <th>QUANTITY</th>
-                </tr>
-                <tr>
-                    <td><input type="text" name="code[]" required></td>
-                    <td><input type="number" name="quantity[]" min="1" required></td>
+                    <th>ORDER ID</th>
+                    <th>CLIENT'S NIF</th>
+                    <th>CLIENT'S NAME</th>
+                    <th>STATUS</th>
                 </tr>
             </table>
-            <div class="center" style="margin-top: 10px;">
-                <button type="button" onclick="addProductRow()">Add Product</button>
+        </div>
+        <div class="retangle below-center" id="tableDiv" style="display:none">
+            <table border="1" id="orderTable" class="retangle">
+                <caption class="label-font center">Products</caption>
+                <tr>
+                    <th>PROD ID</th>
+                    <th>NAME</th>
+                    <th>DESCRIPTION</th>
+                    <th>QUANTITY</th>
+                    <th>ADDED TO ORDER</th>
+                </tr>
+            </table>
+            <div class="center">
+                <table id="buttonsTable">
+                    <!-- Buttons will be added dynamically by PHP/DOMDocument -->
+                </table>
             </div>
-            <div class="center" style="margin-top: 10px;">
-                <label for="clientName"><strong>Client Name:</strong></label>
-                <input type="text" id="clientName" name="clientName" required>
-            </div>
-            <div class="center" style="margin-top: 10px;">
-                <button type="submit" id="createOrder">Create Order</button>
-            </div>
-        </form>
+        </div>
     </div>
+
     <script>
-    function addProductRow() {
-        const table = document.getElementById('orderProductsTable');
-        const row = table.insertRow(-1);
-        row.innerHTML = `
-            <td><input type="text" name="code[]" required></td>
-            <td><input type="number" name="quantity[]" min="1" required></td>
-        `;
-    }
+        const createOrderSection = document.getElementById('create_order_section');
+        const searchOrderSection = document.getElementById('search_order_section');
+        const createRadio = document.getElementById('Create');
+        const searchRadio = document.getElementById('Search');
+
+        function toggleSections() {
+            if (createRadio.checked) {
+                createOrderSection.style.display = 'block';
+                searchOrderSection.style.display = 'none';
+            } else {
+                createOrderSection.style.display = 'none';
+                searchOrderSection.style.display = 'block';
+            }
+        }
+
+        createRadio.addEventListener('change', toggleSections);
+        searchRadio.addEventListener('change', toggleSections);
+        toggleSections();
+
+        function addProductRow() {
+            const table = document.getElementById('orderProductsTable');
+            if (!table) return;
+
+            const row = table.insertRow(-1);
+
+            // Product code cell
+            const codeCell = row.insertCell(0);
+            codeCell.innerHTML = `<input list="product_codes" name="code[]" required aria-label="Product Code">`;
+
+            // Quantity cell
+            const qtyCell = row.insertCell(1);
+            qtyCell.innerHTML = `<input type="number" name="quantity[]" min="1" required aria-label="Quantity">`;
+
+            // Remove button cell
+            const removeCell = row.insertCell(2);
+            removeCell.innerHTML = `<button type="button" onclick="this.closest('tr').remove()" aria-label="Remove row">🗑️</button>`;
+        }
+    </script>
+    <script>
+        // Event delegation for dynamically generated checkboxes
+        document.addEventListener('change', function(e) {
+            if (e.target.matches('input[type=checkbox][name=pRow]')) {
+                if (e.target.checked) {
+                    e.target.parentElement.parentElement.style.backgroundColor = "gray";
+                } else {
+                    e.target.parentElement.parentElement.style.backgroundColor = "";
+                }
+            }
+        });
+
+        function allChecked() {
+            let checkboxes = document.querySelectorAll("input[type=checkbox][name=pRow]");
+            let checked = Array.from(checkboxes).filter(i => i.checked);
+            return checked.length === checkboxes.length;
+        }
+
+        function jsSubmit(e) {
+            let checkboxes = document.querySelectorAll("input[type=checkbox][name=pRow]");
+            if (!allChecked() && e.id !== "cancelled") {
+                window.alert("All rows must be checked before submitting");
+            } else {
+                const formData = new FormData();
+                var searchID = document.getElementById("orderID").value;
+                formData.append("condition", searchID);
+                formData.append("status", e.textContent.toUpperCase());
+
+                fetch("alterTableADM.php", {
+                    body: formData,
+                    method: "POST"
+                }).then(function (response) {
+                    return response.json();
+                }).then(function (data) {
+                    if ("noResult" in data[0]) {
+                        // Show the error message if present, otherwise show a generic message
+                        window.alert(data[0].error || "Entry couldn't be updated");
+                    } else {
+                        document.getElementById("status").textContent = data[0]["stat"];
+                        if (data[0]["stat"].trim() === "SENT") {
+                            checkboxes.forEach(function (e) {
+                                e.disabled = true;
+                                e.checked = true;
+                            });
+                        } else if (data[0]["stat"].trim() === "CANCELLED") {
+                            checkboxes.forEach(function (e) {
+                                e.disabled = true;
+                                e.checked = false;
+                                e.parentElement.parentElement.style.backgroundColor = "";
+                            });
+                        }
+                        if (data["cancelled"]) {
+                            window.alert("order cancelled");
+                        }
+                    }
+                }).catch(function (err) {
+                    console.error(err);
+                });
+            }
+        }
     </script>
 </body>
 

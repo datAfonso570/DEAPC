@@ -3,8 +3,8 @@ session_start();
 
 // Verifica se o utilizador está autenticado
 if (!isset($_SESSION['username'])) {
-    header("Location: index.html"); // Manda para o login 
-    exit();
+  header("Location: index.html"); // Manda para o login 
+  exit();
 }
 
 $nome = htmlspecialchars($_SESSION['username']);
@@ -12,9 +12,10 @@ $nome = htmlspecialchars($_SESSION['username']);
 
 <!DOCTYPE html>
 <html lang="pt">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Área de Utilizador</title>
   <link rel="stylesheet" href="styles/style.css" />
 </head>
@@ -41,4 +42,5 @@ $nome = htmlspecialchars($_SESSION['username']);
     </div>
   </div>
 </body>
+
 </html>

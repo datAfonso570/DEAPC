@@ -1,24 +1,42 @@
+<?php
+session_start();
+
+// Verifica se o utilizador está autenticado
+if (!isset($_SESSION['username'])) {
+    header("Location: index.html"); // Manda para o login 
+    session_destroy();
+    exit();
+}
+
+$nome = htmlspecialchars($_SESSION['username']);
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Admin - Manage Users</title>
     <link rel="stylesheet" href="styles/style.css">
     <link rel="stylesheet" href="styles/users.css">
 </head>
+
 <body class="general-body">
     <header class="site-header">
         <div class="logo">
             <a href="index.html">
-      <img src="images/logo1.png">
-      </a>
+                <img src="images/logo1.png">
+            </a>
         </div>
         <div class="header-text-container">
             <h1>ADMIN AREA</h1>
             <p>USER MANAGEMENT</p>
         </div>
     </header>
-    <button onclick="window.location.href='admin1.html'" class="top-left">Go Back</button>
+    <div style="text-align:left;">
+    <button onclick="window.location.href='admin1.php'" class="go-back-btn">Go Back</button>
+</div>
     <div class="users-container">
         <form class="add-user-form" action="add_mail_users.php" method="POST">
             <h2>Add User</h2>
@@ -45,4 +63,5 @@
         </div>
     </div>
 </body>
+
 </html>

@@ -1,7 +1,7 @@
 <?php
 $servername = "localhost";
-$db_username = "Marcel";
-$db_password = "1234";
+$db_username = "datfonso25";
+$db_password = "lasanha123";
 $dbname = "deapc";
 
 // Conexão
@@ -28,14 +28,14 @@ $result = $stmt->get_result();
 if ($result->num_rows === 1) {
     $user = $result->fetch_assoc();
 
-    // Verificar se a password está correta 
+    // Verificar se a password está correta (sem hash, como no seu print do phpMyAdmin)
     if ($password === $user['passw']) {
         $_SESSION['username'] = $user['username'];
         $_SESSION['role'] = $user['adm'] == 1 ? 'admin' : 'user';
 
         // Redirecionar
         if ($user['adm'] == 1) {
-            header("Location: /DEAPC/admin1.html");
+            header("Location: /DEAPC/admin1.php");
         } else {
             header("Location: /DEAPC/uti1.php");
         }
