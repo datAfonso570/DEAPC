@@ -1,14 +1,4 @@
-<?php
-session_start();
 
-// Verifica se o utilizador está autenticado
-if (!isset($_SESSION['username'])) {
-  header("Location: index.html"); // Manda para o login 
-  exit();
-}
-
-$nome = htmlspecialchars($_SESSION['username']);
-?>
 
 <!DOCTYPE html>
 <html>
@@ -17,7 +7,7 @@ $nome = htmlspecialchars($_SESSION['username']);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage Orders</title>
-    <link rel="stylesheet" href="styles/style.css">
+    <link id="cssLink" rel="stylesheet" href="styles/style.css">
 </head>
 
 <body class="general-body">
@@ -33,17 +23,15 @@ $nome = htmlspecialchars($_SESSION['username']);
     </header>
 
       <header class="User-header">
-    <p><b>User:</b> <?= $nome ?>
-    <button onclick="location.href='scripts/logout.php'">Logout</button></p>
+    <p id="userLogout"></p>
   </header>
 
   
-    <div class="top-left">
-        <p><button onClick="document.location='http://localhost/DEAPC/uti1.php'" class="go-back-btn">Go Back</button></p>
+    <div class="top-left" id="divGoBack">        
 
     </div>
     <div class="search-container">
-        <form action="scripts/orderInfo.php" method="POST" onsubmit="return checkInput(event)" class="search-form">
+        <form  method="POST" class="search-form" onsubmit="return checkInput(event)" id="form">
             <input type="text" id="searchID" name="searchID" class="search-input" placeholder="Order Number" required><button
                 type="Submit" class="search-button">Search</button>
             <input type="hidden" name="page" value="../uti2Template.html">
@@ -91,7 +79,6 @@ $nome = htmlspecialchars($_SESSION['username']);
         </div>
     </div>
     <script>
-
         function checkInput(f){
             const patternOrder = /^[A-F0-9]{6}$/;
 
@@ -99,12 +86,11 @@ $nome = htmlspecialchars($_SESSION['username']);
                 f.preventDefault();
                 window.alert("Invalid order code");
                 return false;
-            }else{     
-                console.log("here");           
+                
+            }else{
                 return true;
             }
         }
-
         let checkboxes = document.querySelectorAll("input[type=checkbox][name=pRow]");
         checkboxes.forEach(grayOnCheck);
         function grayOnCheck(c) {

@@ -34,7 +34,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $results = $stmt->get_result();
     $out = $results->fetch_all(MYSQLI_ASSOC);
     $out[0]["table"] = $table;
-    echo json_encode($out);
+    //var_export($out);
+    echo json_encode($out,JSON_INVALID_UTF8_SUBSTITUTE);
+    //var_export($j);
 
 }
 

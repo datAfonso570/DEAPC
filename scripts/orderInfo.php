@@ -1,9 +1,14 @@
 <?php
-/*session_start();
- if(!isset($_SESSION['logedin'])){
-     header('Location:http://localhost/deapc/index.html');
-     session_destroy();
- }*/
+session_start();
+
+// Verifica se o utilizador está autenticado
+if (!isset($_SESSION['username'])) {
+  header("Location: index.html"); // Manda para o login 
+  exit();
+}
+
+$nome = htmlspecialchars($_SESSION['username']);
+
 
 
 libxml_use_internal_errors(true);
@@ -23,8 +28,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $url = "localhost/deapc/" . $_POST["page"];
 
-    $htmlDoc = new DOMDocument();
+    $htmlDoc = new DOMDocument('1.0', 'utf-8');
+    
     $htmlDoc->loadHTMLFile($_POST["page"]);
+    $htmlDoc->getElementById("cssLink")->setAttribute("href","../styles/style.css");
+      
+    $goBack=$htmlDoc->createDocumentFragment();$logout=$htmlDoc->createDocumentFragment();
+    $goBack->appendXML("<p><button onClick=\"document.location='../uti1.php'\" class=\"go-back-btn\" id=\"goBack\">Go Back</button></p>");
+    $logout->appendXML("<b>User: ".$nome."</b><button onclick=\"location.href='logout.php'\">Logout</button>");
+    //$htmlDoc->getElementById("divGoBack")->removeChild($htmlDoc->getElementById("divGoBack")->firstChild);
+    $htmlDoc->getElementById("divGoBack")->appendChild($goBack);
+    $htmlDoc->getElementById("userLogout")->appendChild($logout);
+    $htmlDoc->getElementById("form")->setAttribute("action","orderInfo.php");
+    $htmlDoc->getElementsByTagName("img")->item(0)->setAttribute("src","../images/logo1.png");
 
     $results = $db->query($sql2);
 
