@@ -2,7 +2,7 @@
 session_start();
 
 // Verifica se o utilizador está autenticado
-if (!isset($_SESSION['username'])) {
+if (!isset($_SESSION['username'])|| $_SESSION['role'] == 'user') {
   header("Location: index.html"); // Manda para o login 
   session_destroy();
   exit();
@@ -16,8 +16,9 @@ $nome = htmlspecialchars($_SESSION['username']);
 
 <head>
   <meta charset="UTF-8">
-  <title>Área Administrador</title>
-  <link rel="stylesheet" href="styles/style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>New Client/Product</title>
+  <link rel="stylesheet" href="/DEAPC/styles/style.css">
 </head>
 
 <body>
@@ -33,14 +34,14 @@ $nome = htmlspecialchars($_SESSION['username']);
     </div>
   </header>
 
-   <header class="User-header">
+  <header class="User-header">
     <p><b>User:</b> <?= $nome ?>
-    <button onclick="location.href='scripts/logout.php'">Logout</button></p>
+      <button onclick="location.href='scripts/logout.php'">Logout</button>
+    </p>
   </header>
-  
   <div style="text-align:left;">
     <button onclick="window.location.href='admin1.php'" class="go-back-btn">Go Back</button>
-</div>
+  </div>
   <div class="fieldset-wrapper">
     <fieldset class="select_product_client">
       <div class="radio-group">
@@ -56,7 +57,7 @@ $nome = htmlspecialchars($_SESSION['username']);
     </fieldset>
   </div>
   <div class="forms-container">
-    <form class="styled-form" id="add_product_form" action="add_product_client.php" method="POST">
+    <form class="styled-form" id="add_product_form" action="scripts/add_product_client.php" method="POST">
       <h2>Add Product</h2>
       <input type="text" name="product_name" placeholder="Product Name" required><br>
       <input type="text" name="supplier" placeholder="Suppliers" required><br>
@@ -77,12 +78,12 @@ $nome = htmlspecialchars($_SESSION['username']);
       <button type="submit">Save Product</button>
       <button type="reset" class="clear-btn">Clear</button>
     </form>
-    <form class="styled-form" id="add_client_form" action="add_product_client.php" method="POST">
+    <form class="styled-form" id="add_client_form" action="scripts/add_product_client.php" method="POST">
       <h2>Add Client</h2>
       <input type="text" name="client_name" placeholder="Client Name" required><br>
       <input type="email" name="email" placeholder="Email" required><br>
       <input type="text" name="address" placeholder="Adress" required><br>
-      <input type="text" name="nif" placeholder="NIF" required><br>
+      <input type="text" name="nif" placeholder="NIF" required pattern="\d{9}" title="NIF must be exactly 9 digits"><br>
       <div class="payment-method-group">
         <div id="payment_method_display" class="payment-method-display" tabindex="0">Choose Payment Method</div>
         <input type="hidden" name="payment_method" id="payment_method" required>
@@ -92,7 +93,7 @@ $nome = htmlspecialchars($_SESSION['username']);
           <div class="method-option">Credit 180 days</div>
         </div>
       </div>
-      <input type="tel" name="phone" placeholder="Phone"><br>
+      <input type="tel" name="phone" placeholder="Phone" pattern="\d{9}" title="Phone must be 9 digits"><br>
       <input type="date" name="date" placeholder="Date:" required><br>
       <button type="submit">Save Client</button>
       <button type="reset" class="clear-btn">Clear</button>
@@ -122,8 +123,12 @@ $nome = htmlspecialchars($_SESSION['username']);
       const params = new URLSearchParams(window.location.search);
       if (params.get('success') === 'product') {
         alert('Product added successfully!');
+        params.delete('success');
+        history.replaceState(null, '', window.location.pathname + '?' + params.toString());
       } else if (params.get('success') === 'client') {
         alert('Client added successfully!');
+        params.delete('success');
+        history.replaceState(null, '', window.location.pathname + '?' + params.toString());
       }
     });
   </script>

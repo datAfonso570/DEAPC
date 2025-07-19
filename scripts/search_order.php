@@ -2,8 +2,8 @@
 libxml_use_internal_errors(true);
 
 $servername = "localhost";
-$db_username = "Marcel";
-$db_password = "1234";
+$db_username = "datfonso25";
+$db_password = "lasanha123";
 $dbname = "deapc";
 
 $conn = new mysqli($servername, $db_username, $db_password, $dbname);
@@ -13,7 +13,7 @@ if ($conn->connect_error) {
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $searchID = $_POST["searchID"] ?? '';
-    $template = "admin4.html";
+    $template = "../admin4.php";
 
     if (empty($searchID)) {
         die("No order ID specified.");
@@ -21,9 +21,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (!file_exists($template)) {
         die("Template file not found.");
     }
-
+    ob_start();
+    include $template;
+    $html = ob_get_clean();
     $htmlDoc = new DOMDocument();
-    $htmlDoc->loadHTMLFile($template);
+    $htmlDoc->loadHTML($html);
 
     // Get order info
     $sql2 = "SELECT * FROM orders_client WHERE orderID = '" . $conn->real_escape_string($searchID) . "'";
@@ -46,7 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $status = $row['stat'];
     } else {
         echo "Order not found.";
-        header("Location: /DEAPC/admin4.html");
+        header("Location: /DEAPC/admin4.php");
         exit;
     }
 

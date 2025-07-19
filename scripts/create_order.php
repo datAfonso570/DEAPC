@@ -1,7 +1,7 @@
 <?php
 $servername = "localhost";
-$db_username = "Marcel";
-$db_password = "1234";
+$db_username = "datfonso25";
+$db_password = "lasanha123";
 $dbname = "deapc";
 
 $conn = new mysqli($servername, $db_username, $db_password, $dbname);
@@ -64,6 +64,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->close();
     }
 
-    echo "Order created successfully! Order ID: $orderID";
+header("Location: /DEAPC/admin4.php?order_success=1&order_id=" . urlencode($orderID));
 }
 ?>

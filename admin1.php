@@ -10,16 +10,14 @@ if (!isset($_SESSION['username']) || $_SESSION['role'] == 'user') {
 
 $nome = htmlspecialchars($_SESSION['username']);
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Área Administrador</title>
-  <link rel="stylesheet" href="styles/style.css">
+  <title>Admin Area</title>
+  <link rel="stylesheet" href="/DEAPC/styles/style.css">
 </head>
 
 <body>
@@ -37,14 +35,14 @@ $nome = htmlspecialchars($_SESSION['username']);
 
   <header class="User-header">
     <p><b>User:</b> <?= $nome ?>
-    <button onclick="location.href='scripts/logout.php'">Logout</button></p>
+      <button onclick="location.href='scripts/logout.php'" class="centered">Logout</button>
+    </p>
   </header>
 
   <button onclick="window.location.href='admin4.php'" class="admin-button">Manage or Create Order</button><br><br>
   <button onclick="window.location.href='admin3.php'" class="admin-button">Add Client or Product</button><br><br>
   <button onclick="window.location.href='admin2.php'" class="admin-button">Stock/Client Management</button><br><br>
   <button onclick="window.location.href='admin5.php'" class="admin-button">Add/View Users</button><br><br>
-  </form>
 
 </body>
 

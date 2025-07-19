@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html>
 
@@ -22,18 +20,18 @@
         </div>
     </header>
 
-      <header class="User-header">
-    <p id="userLogout"></p>
-  </header>
+    <header class="User-header">
+        <p id="userLogout"></p>
+    </header>
 
-  
-    <div class="top-left" id="divGoBack">        
+
+    <div class="top-left" id="divGoBack">
 
     </div>
     <div class="search-container">
-        <form  method="POST" class="search-form" onsubmit="return checkInput(event)" id="form">
-            <input type="text" id="searchID" name="searchID" class="search-input" placeholder="Order Number" required><button
-                type="Submit" class="search-button">Search</button>
+        <form method="POST" class="search-form" onsubmit="return checkInput(event)" id="form">
+            <input type="text" id="searchID" name="searchID" class="search-input" placeholder="Order Number"
+                required><button type="Submit" class="search-button">Search</button>
             <input type="hidden" name="page" value="../uti2Template.html">
         </form>
     </div>
@@ -79,15 +77,15 @@
         </div>
     </div>
     <script>
-        function checkInput(f){
+        function checkInput(f) {
             const patternOrder = /^[A-F0-9]{6}$/;
 
-            if(!patternOrder.test(document.getElementById("searchID").value)){
+            if (!patternOrder.test(document.getElementById("searchID").value)) {
                 f.preventDefault();
                 window.alert("Invalid order code");
                 return false;
-                
-            }else{
+
+            } else {
                 return true;
             }
         }

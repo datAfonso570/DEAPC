@@ -1,13 +1,13 @@
 <?php
-
 $servername = "localhost";
-$db_username = "Marcel";
-$db_password = "1234";
+$db_username = "datfonso25";
+$db_password = "lasanha123";
 $dbname = "deapc";
 
 $conn = new mysqli($servername, $db_username, $db_password, $dbname);
 if ($conn->connect_error) {
-    die(json_encode([["noResult" => true]]));
+    echo json_encode([["noResult" => true, "error" => "DB connection failed"]]);
+    exit;
 }
 
 $orderID = $_POST['condition'] ?? '';
@@ -16,7 +16,6 @@ $status = $_POST['status'] ?? '';
 if ($orderID && $status) {
     // Check stock availability if status is PREPARED
     if (strtoupper($status) === "PREPARED") {
-        // Fetch all prodID and qty into an array
         $stmt = $conn->prepare("SELECT prodID, qty FROM orders_products WHERE orderID = ?");
         $stmt->bind_param("s", $orderID);
         $stmt->execute();
@@ -54,7 +53,7 @@ if ($orderID && $status) {
             exit;
         }
 
-        // **DEDUCT STOCK**
+        // DEDUCT STOCK
         foreach ($products as $product) {
             $stmt2 = $conn->prepare("UPDATE products SET qty = qty - ? WHERE id = ?");
             $stmt2->bind_param("ii", $product['qty'], $product['prodID']);
@@ -72,7 +71,6 @@ if ($orderID && $status) {
     $stmt->close();
 
     $previous_status = $previous_status ? trim($previous_status) : '';
-    error_log("Previous status: '$previous_status', New status: '$status'");
 
     // Update status
     $stmt = $conn->prepare("UPDATE orders_client SET stat=? WHERE orderID=?");
@@ -148,7 +146,9 @@ if ($orderID && $status) {
     $stmt->close();
 
     echo json_encode([["stat" => $newStat]]);
+    exit;
 } else {
-    echo json_encode([["noResult" => true]]);
+    echo json_encode([["noResult" => true, "error" => "Missing orderID or status"]]);
+    exit;
 }
 ?>
