@@ -3,8 +3,8 @@ session_start();
 
 // Verifica se o utilizador está autenticado
 if (!isset($_SESSION['username'])) {
-  header("Location: index.html"); // Manda para o login 
-  exit();
+    header("Location: index.html"); // Manda para o login 
+    exit();
 }
 
 $nome = htmlspecialchars($_SESSION['username']);
@@ -32,24 +32,24 @@ $nome = htmlspecialchars($_SESSION['username']);
         </div>
     </header>
     <div class="top-left">
-
-      <header class="User-header">
-    <p><b>User:</b> <?= $nome ?>
-    <button onclick="location.href='scripts/logout.php'">Logout</button></p>
-  </header>
-
-
-        <p><button onClick="document.location='http://localhost/DEAPC/uti1.php'" class="go-back-btn">Go Back</button></p>
+        <header class="User-header">
+            <p><b>User:</b> <?= $nome ?>
+                <button onclick="location.href='scripts/logout.php'">Logout</button>
+            </p>
+        </header>
+    </div>
+    <div style="text-align:left;">
+        <button onclick="window.location.href='uti1.php'" class="go-back-btn">Go Back</button>
     </div>
     <div class="search-container">
-
         <p class="search-form"><label class="label-font"></label>
-        <select id="searchFor" class="search-button" onChange="changePH(this)">
-            <option value="clients">Client</option>
-            <option value="products">Product</option>
-        </select>
-        <input type="text" id="searchID" name="searchID" class="search-input" placeholder="Client NIF"><button type="button"
-                onClick="jsSubmit()" class="search-button">Search</button></p>
+            <select id="searchFor" class="search-button" onChange="changePH(this)">
+                <option value="clients">Client</option>
+                <option value="products">Product</option>
+            </select>
+            <input type="text" id="searchID" name="searchID" class="search-input" placeholder="Client NIF"><button
+                type="button" onClick="jsSubmit()" class="search-button">Search</button>
+        </p>
         <input type="hidden" id="selected" name="url" value="uti3.php">
 
     </div>
@@ -59,22 +59,22 @@ $nome = htmlspecialchars($_SESSION['username']);
     </div>
 </body>
 <script>
-    function changePH(e){             
+    function changePH(e) {
         //kep in mind that e.textContent is a string that has several whitespaces, before, after words and also \n, it appears to be formatted like the options tags
-        if(e.value=="products"){
-            document.getElementById("searchID").placeholder=e.textContent.substring(e.textContent.indexOf("Product")).trim()+" Code";
-            document.getElementById("searchID").value="";
-        }else if(e.value=="clients"){
-            document.getElementById("searchID").placeholder=e.textContent.substring(e.textContent.indexOf("Client"),e.textContent.indexOf("Product")).trim()+" NIF";
-            document.getElementById("searchID").value="";
+        if (e.value == "products") {
+            document.getElementById("searchID").placeholder = e.textContent.substring(e.textContent.indexOf("Product")).trim() + " Code";
+            document.getElementById("searchID").value = "";
+        } else if (e.value == "clients") {
+            document.getElementById("searchID").placeholder = e.textContent.substring(e.textContent.indexOf("Client"), e.textContent.indexOf("Product")).trim() + " NIF";
+            document.getElementById("searchID").value = "";
         }
-        
+
     }
 
     function jsSubmit() {
-        
+
         const patternNIF = /\d{9}/;
-        
+
         const patternProd = /\d{1,6}/;
 
         const formData = new FormData();
@@ -82,13 +82,13 @@ $nome = htmlspecialchars($_SESSION['username']);
         let selector = document.getElementById("searchFor");
         let selected = selector.options[selector.selectedIndex].value;
 
-        if((selected =="clients" && patternNIF.test(searchID)) || (selected =="products" && patternProd.test(searchID))){
+        if ((selected == "clients" && patternNIF.test(searchID)) || (selected == "products" && patternProd.test(searchID))) {
 
-        
+
             formData.append("condition", searchID);
             formData.append("table", selected);
             formData.append("url", document.getElementById("selected").value);
-            
+
 
             fetch("http://localhost/deapc/scripts/query.php", {
                 // if instead of formData, I assign requestBody to body, it works!
@@ -100,25 +100,8 @@ $nome = htmlspecialchars($_SESSION['username']);
                 //return response.text();
             }).then(function (data) {
                 //console.log(data);
-                
-                //document.getElementsByTagName("html")[0].innerHTML= data;
-                /*for(let val of data.id3){
-                        console.log(val);
-                    }
-                    for(let val of Object.keys(data)){
-                        console.log(data[val]);
-                    }
-                    for(let val of Object.entries(data)){
-                        console.log(val);
-                    }*/
 
-                //let table = document.getElementsByTagName("table").namedItem(data[0].table);
 
-                /*if(table.rows.length>1){
-                    for(let x =1; x<table.rows.length;x++){
-                        table.deleteRow(x);
-                    }
-                }*/
                 let table = document.createElement("table");
                 table.setAttribute("border", "1");
                 let header = table.createTHead();
@@ -152,16 +135,16 @@ $nome = htmlspecialchars($_SESSION['username']);
 
                 }
 
-                //let div = data[0].table + "Div";
+
                 document.getElementById("tableDiv").innerHTML = "";
                 document.getElementById("tableDiv").appendChild(table);
                 document.getElementById("tableDiv").style.display = "block";
             }).catch(function (err) {
                 console.error(err);
             });
-        }else if(selected =="clients" && !patternNIF.test(searchID)){
+        } else if (selected == "clients" && !patternNIF.test(searchID)) {
             window.alert("Input is not a valid NIF");
-        }else if(selected =="products" && !patternProd.test(searchID)){
+        } else if (selected == "products" && !patternProd.test(searchID)) {
             window.alert("Input is not a valid product code");
         }
     }

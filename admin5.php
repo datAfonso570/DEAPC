@@ -2,7 +2,7 @@
 session_start();
 
 // Verifica se o utilizador está autenticado
-if (!isset($_SESSION['username'])) {
+if (!isset($_SESSION['username'])|| $_SESSION['role'] == 'user') {
     header("Location: index.html"); // Manda para o login 
     session_destroy();
     exit();
@@ -17,9 +17,9 @@ $nome = htmlspecialchars($_SESSION['username']);
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin - Manage Users</title>
-    <link rel="stylesheet" href="styles/style.css">
-    <link rel="stylesheet" href="styles/users.css">
+    <link rel="stylesheet" href="/DEAPC/styles/style.css">
 </head>
 
 <body class="general-body">
@@ -35,16 +35,17 @@ $nome = htmlspecialchars($_SESSION['username']);
         </div>
     </header>
 
-     <header class="User-header">
-    <p><b>User:</b> <?= $nome ?>
-    <button onclick="location.href='scripts/logout.php'">Logout</button></p>
-  </header>
-  
+    <header class="User-header">
+        <p><b>User:</b> <?= $nome ?>
+            <button onclick="location.href='scripts/logout.php'">Logout</button>
+        </p>
+    </header>
+
     <div style="text-align:left;">
-    <button onclick="window.location.href='admin1.php'" class="go-back-btn">Go Back</button>
-</div>
+        <button onclick="window.location.href='admin1.php'" class="go-back-btn">Go Back</button>
+    </div>
     <div class="users-container">
-        <form class="add-user-form" action="add_mail_users.php" method="POST">
+        <form class="add-user-form" action="scripts/add_mail_users.php" method="POST">
             <h2>Add User</h2>
             <input type="text" name="username" placeholder="Username" required>
             <input type="email" name="email" placeholder="Email" required>
@@ -64,7 +65,7 @@ $nome = htmlspecialchars($_SESSION['username']);
                     <th>Role</th>
                     <th>Status</th>
                 </tr>
-                <?php include 'get_users.php'; ?>
+                <?php include 'scripts/get_users.php'; ?>
             </table>
         </div>
     </div>

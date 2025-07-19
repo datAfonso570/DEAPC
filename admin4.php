@@ -3,9 +3,9 @@ session_start();
 
 // Verifica se o utilizador está autenticado
 if (!isset($_SESSION['username']) || $_SESSION['role'] == 'user') {
-  header("Location: index.html"); // Manda para o login
-  session_destroy();
-  exit();
+    header("Location: index.html"); // Manda para o login
+    session_destroy();
+    exit();
 }
 
 $nome = htmlspecialchars($_SESSION['username']);
@@ -18,11 +18,16 @@ $nome = htmlspecialchars($_SESSION['username']);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Relearning HTML</title>
-    <link rel="stylesheet" href="styles/style.css">
+    <title>Manage Orders</title>
+    <link rel="stylesheet" href="/DEAPC/styles/style.css">
 </head>
 
 <body class="general-body">
+    <?php if (isset($_GET['order_success']) && $_GET['order_success'] == 1 && isset($_GET['order_id'])): ?>
+        <script>
+            alert("Order created successfully! Order ID: <?php echo htmlspecialchars($_GET['order_id']); ?>");
+        </script>
+    <?php endif; ?>
     <header class="site-header">
         <div class="logo">
             <img src="images/logo1.png" alt="Company Logo">
@@ -32,17 +37,14 @@ $nome = htmlspecialchars($_SESSION['username']);
             <p>PREPARE / CREATE ORDER</p>
         </div>
     </header>
-
-
     <header class="User-header">
-    <p><b>User:</b> <?= $nome ?>
-    <button onclick="location.href='scripts/logout.php'">Logout</button></p>
-  </header>
-
-
+        <p><b>User:</b> <?= $nome ?>
+            <button onclick="location.href='scripts/logout.php'">Logout</button>
+        </p>
+    </header>
     <div style="text-align:left;">
-    <button onclick="window.location.href='admin1.php'" class="go-back-btn">Go Back</button>
-</div>
+        <button onclick="window.location.href='/DEAPC/admin1.php'" class="go-back-btn">Go Back</button>
+    </div>
     <!-- Radio Buttons -->
     <div class="order-radio-group">
         <label>
@@ -58,7 +60,7 @@ $nome = htmlspecialchars($_SESSION['username']);
     <!-- CREATE ORDER SECTION -->
     <div id="create_order_section">
         <div class="retangle below-center">
-            <form id="createOrderForm" action="create_order.php" method="POST">
+            <form id="createOrderForm" action="scripts/create_order.php" method="POST">
                 <table border="1" id="orderProductsTable">
                     <caption><strong>Create New Order</strong></caption>
                     <tr>
@@ -70,7 +72,7 @@ $nome = htmlspecialchars($_SESSION['username']);
                             <input list="product_codes" name="code[]" id="product_code" required>
                             <datalist id="product_codes"></datalist>
                             <script>
-                                fetch('datalists.php?type=products')
+                                fetch('scripts/datalists_orders.php?type=products')
                                     .then(response => response.text())
                                     .then(data => {
                                         document.getElementById('product_codes').innerHTML = data;
@@ -79,7 +81,8 @@ $nome = htmlspecialchars($_SESSION['username']);
                         </td>
                         <td><input type="number" name="quantity[]" min="1" required></td>
                         <td>
-                            <button type="button" onclick="this.closest('tr').remove()" aria-label="Remove row">🗑️</button>
+                            <button type="button" onclick="this.closest('tr').remove()"
+                                aria-label="Remove row">🗑️</button>
                         </td>
                     </tr>
                 </table>
@@ -88,10 +91,11 @@ $nome = htmlspecialchars($_SESSION['username']);
                 </div>
                 <div class="center" style="margin-top: 10px;">
                     <label for="clientNIF"><strong>Client NIF:</strong></label>
-                    <input list="client_nifs" id="clientNIF" name="clientNIF" class="wide-input" required>
+                    <input list="client_nifs" id="clientNIF" name="clientNIF" class="wide-input" required
+                        pattern="\d{9}" title="NIF must be exactly 9 digits" required>
                     <datalist id="client_nifs"></datalist>
                     <script>
-                        fetch('datalists.php?type=clients')
+                        fetch('scripts/datalists_orders.php?type=clients')
                             .then(response => response.text())
                             .then(data => {
                                 document.getElementById('client_nifs').innerHTML = data;
@@ -108,18 +112,19 @@ $nome = htmlspecialchars($_SESSION['username']);
     <!-- SEARCH ORDER SECTION -->
     <div id="search_order_section" style="display:none">
         <div class="retangle below-center search-retangle">
-            <form action="search_order.php" method="POST" >
+            <form action="scripts/search_order.php" method="POST">
                 <label class="label-font" for="searchID"><strong>Order Number</strong></label>
-                <input list="order_numbers" type="text" name="searchID" id="searchID" required>
+                <input list="order_numbers" type="text" name="searchID" id="searchID" required pattern="[A-Za-z0-9]{6}"
+                    title="Orders are alphanumeric with 6 digits" required>
                 <datalist id="order_numbers"></datalist>
                 <script>
-                fetch('datalists.php?type=orders')
-                  .then(response => response.text())
-                  .then(data => {
-                    document.getElementById('order_numbers').innerHTML = data;
-                  });
+                    fetch('scripts/datalists_orders.php?type=orders')
+                        .then(response => response.text())
+                        .then(data => {
+                            document.getElementById('order_numbers').innerHTML = data;
+                        });
                 </script>
-                <input type="hidden" name="page" value="admin4.html">
+                <input type="hidden" name="page" value="admin4.php">
                 <button type="submit">Search</button>
             </form>
         </div>
@@ -194,7 +199,7 @@ $nome = htmlspecialchars($_SESSION['username']);
     </script>
     <script>
         // Event delegation for dynamically generated checkboxes
-        document.addEventListener('change', function(e) {
+        document.addEventListener('change', function (e) {
             if (e.target.matches('input[type=checkbox][name=pRow]')) {
                 if (e.target.checked) {
                     e.target.parentElement.parentElement.style.backgroundColor = "gray";
@@ -220,7 +225,7 @@ $nome = htmlspecialchars($_SESSION['username']);
                 formData.append("condition", searchID);
                 formData.append("status", e.textContent.toUpperCase());
 
-                fetch("alterTableADM.php", {
+                fetch("/DEAPC/scripts/alterTableADM.php", {
                     body: formData,
                     method: "POST"
                 }).then(function (response) {

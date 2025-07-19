@@ -1,21 +1,19 @@
 <?php
-
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
 // Verifica se o utilizador está autenticado
 if (!isset($_SESSION['username'])) {
-    header("Location: index.html"); // Manda para o login 
+    header("Location: /DEAPC/index.html"); // Manda para o login 
     exit();
 }
 
 $nome = htmlspecialchars($_SESSION['username']);
 
-
 $servername = "localhost";
-$db_username = "Marcel";
-$db_password = "1234";
+$db_username = "datfonso25";
+$db_password = "lasanha123";
 $dbname = "deapc";
 
 $conn = new mysqli($servername, $db_username, $db_password, $dbname);
@@ -24,39 +22,42 @@ if ($conn->connect_error) {
 }
 
 $nif_idproduct = $_POST['nif_product'] ?? null;
+$tipo = $_POST['tipo'] ?? null; // "Produto" or "Cliente"
 $action = $_POST['action'] ?? null;
 $message = "";
 $table = '';
 $id_field = '';
 $row = null;
 
+// Determine table and id field based on radio selection
+if ($tipo === "Cliente") {
+    $table = "clients";
+    $id_field = "nif";
+} elseif ($tipo === "Produto") {
+    $table = "products";
+    $id_field = "id";
+}
+
 // Handle update
-if ($action === "update" && isset($_POST['nif_product'])) {
-    if (strlen($_POST['nif_product']) == 9) {
-        $table = "clients";
-        $id_field = "nif";
-    } else {
-        $table = "products";
-        $id_field = "id";
-    }
+if ($action === "update" && $nif_idproduct && $table && $id_field) {
     $fields = [];
     $params = [];
     $types = "";
     foreach ($_POST as $key => $value) {
-        if ($key !== 'action' && $key !== 'nif_product') {
+        if ($key !== 'action' && $key !== 'nif_product' && $key !== 'tipo') {
             $fields[] = "$key=?";
             $params[] = $value;
             $types .= "s";
         }
     }
-    $params[] = $_POST['nif_product'];
+    $params[] = $nif_idproduct;
     $types .= "s";
     $sql = "UPDATE $table SET " . implode(",", $fields) . " WHERE $id_field=?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param($types, ...$params);
     if ($stmt->execute()) {
         $message = "<div class='success-message'><strong>Updated successfully.</strong></div>";
-        header("Location: admin2.php?msg=updated");
+        header("Location: /DEAPC/admin2.php?msg=updated");
         exit();
     } else {
         $message = "<div class='error-message'>Update failed.</div>";
@@ -64,20 +65,13 @@ if ($action === "update" && isset($_POST['nif_product'])) {
 }
 
 // Handle delete
-if ($action === "delete" && isset($_POST['nif_product'])) {
-    if (strlen($_POST['nif_product']) == 9) {
-        $table = "clients";
-        $id_field = "nif";
-    } else {
-        $table = "products";
-        $id_field = "id";
-    }
+if ($action === "delete" && $nif_idproduct && $table && $id_field) {
     $sql = "DELETE FROM $table WHERE $id_field=?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("s", $_POST['nif_product']);
+    $stmt->bind_param("s", $nif_idproduct);
     if ($stmt->execute()) {
         $message = "<div class='success-message'>Deleted successfully.</div>";
-        header("Location: admin2.php?msg=deleted");
+        header("Location: /DEAPC/admin2.php?msg=deleted");
         exit();
     } else {
         $message = "<div class='error-message'>Delete failed.</div>";
@@ -85,23 +79,21 @@ if ($action === "delete" && isset($_POST['nif_product'])) {
 }
 
 // Fetch and display row
-if ($nif_idproduct && !$action) {
-    if (strlen($nif_idproduct) == 9) {
-        $stmt = $conn->prepare("SELECT * FROM clients WHERE nif = ?");
-        $stmt->bind_param("s", $nif_idproduct);
-        $table = 'clients';
-        $id_field = 'nif';
-    } else {
-        $stmt = $conn->prepare("SELECT * FROM products WHERE id = ?");
-        $stmt->bind_param("s", $nif_idproduct);
-        $table = 'products';
-        $id_field = 'id';
-    }
+if ($nif_idproduct && !$action && $table && $id_field) {
+    $stmt = $conn->prepare("SELECT * FROM $table WHERE $id_field = ?");
+    $stmt->bind_param("s", $nif_idproduct);
     $stmt->execute();
     $result = $stmt->get_result();
     $row = $result->fetch_assoc();
 }
-
+?>
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="/DEAPC/styles/style.css">
+</head>
+<body>
+<?php
 echo $message;
 
 if ($row) {
@@ -115,6 +107,7 @@ if ($row) {
         echo "</div>";
     }
     echo "<input type='hidden' name='nif_product' value='" . htmlspecialchars($nif_idproduct) . "'>";
+    echo "<input type='hidden' name='tipo' value='" . htmlspecialchars($tipo) . "'>";
     echo '<div class="form-actions">';
     echo '<button class="update" type="submit" name="action" value="update">Save Alterations</button>';
     echo '<button class="delete" type="submit" name="action" value="delete" onclick="return confirm(\'Are you sure you want to remove this record?\')">Remove</button>';
@@ -124,3 +117,5 @@ if ($row) {
     echo '<div class="error-message"><strong>No record found.</strong></div>';
 }
 ?>
+</body>
+</html>

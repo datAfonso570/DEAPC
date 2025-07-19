@@ -3,8 +3,8 @@ session_start();
 
 // Verifica se o utilizador está autenticado
 if (!isset($_SESSION['username'])) {
-  header("Location: index.html"); // Manda para o login 
-  exit();
+    header("Location: index.html"); // Manda para o login 
+    exit();
 }
 
 $nome = htmlspecialchars($_SESSION['username']);
@@ -31,21 +31,18 @@ $nome = htmlspecialchars($_SESSION['username']);
             <p>MANAGE ORDERS</p>
         </div>
     </header>
-
-      <header class="User-header">
-    <p><b>User:</b> <?= $nome ?>
-    <button onclick="location.href='scripts/logout.php'">Logout</button></p>
-  </header>
-
-  
-    <div class="top-left">
-        <p><button onClick="document.location='http://localhost/DEAPC/uti1.php'" class="go-back-btn">Go Back</button></p>
-
+    <header class="User-header">
+        <p><b>User:</b> <?= $nome ?>
+            <button onclick="location.href='scripts/logout.php'">Logout</button>
+        </p>
+    </header>
+    <div style="text-align:left;">
+        <button onclick="window.location.href='uti1.php'" class="go-back-btn">Go Back</button>
     </div>
     <div class="search-container">
         <form action="scripts/orderInfo.php" method="POST" onsubmit="return checkInput(event)" class="search-form">
-            <input type="text" id="searchID" name="searchID" class="search-input" placeholder="Order Number" required><button
-                type="Submit" class="search-button">Search</button>
+            <input type="text" id="searchID" name="searchID" class="search-input" placeholder="Order Number"
+                required><button type="Submit" class="search-button">Search</button>
             <input type="hidden" name="page" value="../uti2Template.html">
         </form>
     </div>
@@ -92,15 +89,15 @@ $nome = htmlspecialchars($_SESSION['username']);
     </div>
     <script>
 
-        function checkInput(f){
+        function checkInput(f) {
             const patternOrder = /^[A-F0-9]{6}$/;
 
-            if(!patternOrder.test(document.getElementById("searchID").value)){
+            if (!patternOrder.test(document.getElementById("searchID").value)) {
                 f.preventDefault();
                 window.alert("Invalid order code");
                 return false;
-            }else{     
-                console.log("here");           
+            } else {
+                console.log("here");
                 return true;
             }
         }
